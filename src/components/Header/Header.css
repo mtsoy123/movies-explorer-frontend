@@ -1,0 +1,223 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /*padding: 18px 0;*/
+  position: relative;
+
+  background-color: #073042;
+
+  width: 100%;
+  /*max-width: 1280px;*/
+  box-sizing: border-box;
+}
+
+.header__logo {
+  margin-right: 44px;
+}
+
+.header__navigation {
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  padding: 18px 70px;
+  box-sizing: border-box;
+}
+
+.header__button {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0
+}
+
+.header__button-container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.header__button_type_primary {
+  background-color: #3DDC84;
+  color: #000;
+  border-radius: 3px;
+  padding: 8px 20px;
+}
+
+.header__button_type_account {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+
+  border: 2px solid rgba(170, 170, 170, 1);
+  border-radius: 50px;
+  color: #fff;
+
+  padding: 8px 12px;
+}
+
+.header__button_type_account:before {
+  content: url('../../images/icon__account.svg');
+  padding-right: 7px;
+}
+
+.header__button_type_secondary {
+  color: #fff;
+}
+
+.header__button_type_menu:before {
+  content: url('../../images/icon__menu.svg');
+}
+
+.header__navigation-container {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  width: 100%;
+}
+
+.header__navigation_type_account {
+  margin: 0 16px 0 auto;
+}
+
+.header__navigation-container__type_menu-button {
+  display: none;
+  background-image: url('../../images/icon__menu.svg');
+  width: 44px;
+  height: 44px;
+}
+
+.header__navigation-list {
+  margin-right: 16px;
+}
+
+.header__navigation-list:last-child {
+  margin-right: 0;
+}
+
+.header__navigation-folded {
+  display: none;
+}
+
+.header__navigation-link {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  color:#fff;
+
+  text-decoration: none;
+}
+
+.header__navigation-link_type_active {
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 768px) {
+
+  .header__navigation {
+    padding: 18px 30px;
+  }
+
+  .header__navigation-folded {
+    display: block;
+  }
+
+  .header__navigation-container__type_menu-button {
+    display: block;
+    cursor: pointer;
+  }
+
+  .header__navigation-container{
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 520px;
+    height: 100vh;
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    background-color: #202020;
+  }
+
+  .header__navigation-list {;
+    margin: 0 0 28px 0;
+  }
+
+  .header__navigation-list:first-child {
+    margin-top: 159px;
+  }
+
+  .header__navigation-container_opened {
+    display: flex;
+    z-index: 1;
+  }
+
+  .header__navigation_type_account {
+    margin: auto 0 90px 0;
+  }
+
+  .header__overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 1);
+    opacity: 30%;
+  }
+
+  .header__navigation-link {
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .header__navigation-link_type_active {
+    text-decoration: underline;
+  }
+
+  .header__button_type_close {
+    background-image: url('../../images/icon__close.svg');
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 29px;
+    right: 29px;
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .header__navigation {
+    padding: 18px 14px;
+  }
+
+  .header__navigation-container{
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
