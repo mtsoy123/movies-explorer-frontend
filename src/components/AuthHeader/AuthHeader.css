@@ -15,20 +15,19 @@
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
-
-  color: #FFFFFF;
+  color: #fff;
   width: 100%;
   margin: 0;
 }
 
-@media screen and (max-width: 768px){
-  .auth-header{
+@media screen and (max-width: 768px) {
+  .auth-header {
     padding: 232px 0 40px 0;
   }
 }
 
-@media screen and (max-width: 500px){
-  .auth-header{
+@media screen and (max-width: 500px) {
+  .auth-header {
     display: flex;
     flex-direction: column;
     padding: 56px 30px 80px 30px;

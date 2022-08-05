@@ -4,15 +4,15 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({cardButton}) {
   return (
-    <section className='movie-card-list'>
-      <ul className='movie-card-list__grid'>
+    <section className="movie-card-list">
+      <ul className="movie-card-list__grid">
         <MoviesCard cardButton={cardButton}/>
         <MoviesCard cardButton={cardButton}/>
         <MoviesCard cardButton={cardButton}/>
         <MoviesCard cardButton={cardButton}/>
       </ul>
-      <div className='movie-card-list__add-more'>
-        <button className='movie-card-list__add-more-button'>Ещё</button>
+      <div className="movie-card-list__add-more">
+        <button className="movie-card-list__add-more-button">Ещё</button>
       </div>
     </section>
   );

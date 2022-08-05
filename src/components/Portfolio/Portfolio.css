@@ -3,9 +3,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /*align-items: center;*/
   padding: 0 70px 125px 70px;
-
   width: 100%;
   max-width: 1280px;
   box-sizing: border-box;
@@ -17,9 +15,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 20px;
-
-  color: #8B8B8B;
-
+  color: #8b8b8b;
   margin: 0;
   padding-bottom: 50px;
 }
@@ -38,19 +34,21 @@
   font-size: 14px;
   line-height: 17px;
   letter-spacing: -0.04em;
-
-  color: #FFFFFF;
-
+  color: #fff;
   width: 100%;
-
   margin-bottom: 20px;
+}
+
+.portfolio__link:hover {
+  cursor: pointer;
+  transition: opacity .3s ease-out;
+  opacity: 70%;
 }
 
 .portfolio__link::after {
   content: '';
-  border-bottom: 1px solid #E6E6E6;;
+  border-bottom: 1px solid #e6e6e6;;
   padding-top: 19px;
-
   width: 100%;
   display: block;
 }
@@ -72,7 +70,7 @@
   font-size: 30px;
   line-height: 50px;
   letter-spacing: -0.04em;
-  color: #FFFFFF;
+  color: #fff;
   width: 100%;
   text-decoration: none;
 }

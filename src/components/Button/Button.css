@@ -5,22 +5,24 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-
   text-align: center;
-
-  color: #FFFFFF;
+  color: #fff;
   background-color: #4285f4;
-
   border: none;
   border-radius: 3px;
-
   padding: 14px;
   width: 100%;
+  cursor: pointer;
 }
+
+.button:hover {
+  transition: opacity .3s ease-out;
+  opacity: 0.8;
+}
+
 @media screen and (max-width: 500px) {
   .button {
     font-size: 12px;
     line-height: 15px;
   }
-
 }

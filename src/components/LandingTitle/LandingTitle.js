@@ -3,7 +3,7 @@ import './LandingTitle.css'
 
 function LandingTitle({children}) {
   return (
-    <h2 className='landing-title'>
+    <h2 className="landing-title">
       {children}
     </h2>
   );

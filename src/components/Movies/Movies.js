@@ -11,7 +11,7 @@ function Movies({loggedIn}) {
       <Header loggedIn={loggedIn}/>
       <Preloader/>
       <SearchForm/>
-      <MoviesCardList cardButton='like'/>
+      <MoviesCardList cardButton="like"/>
       <Footer/>
     </>
   );

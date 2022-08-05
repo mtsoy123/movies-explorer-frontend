@@ -7,6 +7,7 @@ import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -14,6 +15,9 @@ function App() {
   return (
     <section className='app'>
       <Switch>
+        <Route exact path='/'>
+          <Main/>
+        </Route>
         <Route path='/movies'>
           <Movies
             loggedIn={loggedIn}
@@ -37,8 +41,8 @@ function App() {
         <Route path='/signup'>
           <Register/>
         </Route>
-        <Route exact path='/'>
-          <Main/>
+        <Route path='/404'>
+          <NotFound/>
         </Route>
       </Switch>
 

@@ -9,7 +9,7 @@ function SavedMovies({loggedIn}) {
     <>
       <Header loggedIn={loggedIn}/>
       <SearchForm/>
-      <MoviesCardList cardButton='delete'/>
+      <MoviesCardList cardButton="delete"/>
       <Footer/>
     </>
   );

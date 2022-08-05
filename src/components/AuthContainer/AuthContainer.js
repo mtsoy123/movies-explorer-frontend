@@ -3,7 +3,7 @@ import './AuthContainer.css'
 
 function AuthContainer({children}) {
   return (
-    <section className='auth-container'>
+    <section className="auth-container">
       {children}
     </section>
   );

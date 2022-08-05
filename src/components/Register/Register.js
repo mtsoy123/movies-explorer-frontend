@@ -9,35 +9,36 @@ import AuthCaption from '../AuthCaption/AuthCaption';
 
 function Register(props) {
   return (
-    <main className='register'>
-    <AuthHeader
-      titleText='Добро пожаловать!'
-    />
+    <main className="register">
+      <AuthHeader
+        titleText="Добро пожаловать!"
+      />
       <AuthContainer
-        mix='register'
+        mix="register"
       >
         <AuthForm
-          mix='register'
+          mix="register"
         >
           <Input
-            labelText='Имя'
+            labelText="Имя"
           />
           <Input
-            labelText='E-mail'
+            labelText="E-mail"
           />
           <Input
-            labelText='Пароль'
+            labelText="Пароль"
           />
         </AuthForm>
         <Button
-          buttonText='Зарегистрироваться'
-          mix='register'
+          buttonText="Зарегистрироваться"
+          mix="register"
         />
         <AuthCaption
-          captionText='Уже зарегистрированы?'
-          linkText='Войти'
+          captionText="Уже зарегистрированы?"
+          linkText="Войти"
+          linkTo="/signin"
         />
-      </AuthContainer >
+      </AuthContainer>
     </main>
   );
 }

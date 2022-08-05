@@ -9,23 +9,23 @@ import AuthForm from '../AuthForm/AuthForm';
 
 function Login(props) {
   return (
-    <main className='login'>
+    <main className="login">
       <AuthHeader
-        titleText='Рады видеть!'
+        titleText="Рады видеть!"
       />
       <AuthContainer>
         <AuthForm>
-          <Input labelText='E-mail'/>
-          <Input labelText='Пароль'/>
+          <Input labelText="E-mail"/>
+          <Input labelText="Пароль"/>
         </AuthForm>
         <Button
-          mix='login'
-          buttonText='Войти'
+          mix="login"
+          buttonText="Войти"
         />
         <AuthCaption
-          captionText='Ещё не зарегистрированы?'
-          linkText='Регистрация'
-          linkTo='/signup'
+          captionText="Ещё не зарегистрированы?"
+          linkText="Регистрация"
+          linkTo="/signup"
         />
       </AuthContainer>
     </main>
