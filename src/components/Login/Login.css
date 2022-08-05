@@ -1,0 +1,22 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  max-width: 396px;
+}
+
+.button_type_login {
+  width: 100%;
+  max-width: 398px;
+  margin: 179px 0 16px 0;
+}
+
+@media screen and (max-width: 500px){
+  .button_type_login {
+    width: 100%;
+    max-width: 260px;
+    margin: 267px auto 14px auto;
+  }
+}

@@ -1,0 +1,125 @@
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  background: #222222;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+}
+
+.movie-card__thumbnail {
+  object-fit: cover;
+  object-position: center;
+  height: 203px;
+}
+
+.movie-card__container {
+  box-sizing: border-box;
+  padding: 16px;
+  width: 100%;
+  position: relative;
+}
+
+.movie-card__title {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+
+  color: #FFFFFF;
+
+  max-width: 290px;
+
+  margin: 0;
+  padding-bottom: 17px;
+}
+
+.movie-card__caption {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+
+  color: #8B8B8B;
+  margin: 0;
+}
+
+.movie-card__button {
+  position: absolute;
+  top: 9px;
+  right: 16px;
+  border: none;
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0;
+  cursor: pointer;
+}
+
+.movie-card__button_type_active {
+  background-image: url('../../images/movie-card__button_type_active.svg');
+}
+
+
+.movie-card__button_type_like {
+  background-image: url('../../images/movie-card__button_type_default.svg');
+}
+
+.movie-card:hover .movie-card__button_type_delete{
+  background-image: url('../../images/movie-card__button_type_delete.svg');
+}
+
+@media screen and (max-width: 768px) {
+  .movie-card {
+    max-width: 339px;
+  }
+
+  .movie-card__thumbnail {
+    height: 190px;
+  }
+
+  .movie-card__container {
+    padding: 14px;
+  }
+
+  .movie-card__title {
+    padding-bottom: 15px;
+  }
+
+  .movie-card__button {
+    top: 9px;
+    right: 14px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .movie-card {
+    max-width: 300px;
+  }
+
+  .movie-card__thumbnail {
+    height: 168px;
+  }
+
+
+  .movie-card__title {
+    font-size: 12px;
+    line-height: 15px;
+    padding-bottom: 14px;
+  }
+
+  .movie-card__caption {
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .movie-card__button {
+    top: 7px;
+    right: 10px;
+  }
+}

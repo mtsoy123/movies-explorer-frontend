@@ -1,0 +1,30 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  max-width: 396px;
+}
+
+.button_type_register {
+  width: 100%;
+  max-width: 398px;
+  margin: 69px 0 16px 0;
+}
+
+.auth-form_type_register {
+  padding-bottom: 83px;
+}
+
+@media screen and (max-width: 500px){
+  .register__logo {
+    margin-bottom: 50px;
+  }
+
+  .button_type_register {
+    width: 100%;
+    max-width: 260px;
+    margin: 157px auto 14px auto;
+  }
+}

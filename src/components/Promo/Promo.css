@@ -9,7 +9,7 @@
 }
 
 .promo__container {
-  padding: 50px 70px 60px 70px;
+  padding: 124px 70px 60px 70px;
   background: #073042;
 
   height: 560px;
@@ -61,7 +61,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 300px 44px 70px 44px;
+    padding: 374px 44px 70px 44px;
     height: 844px;
   }
 
@@ -81,7 +81,7 @@
 
 @media only screen and (max-width: 500px) {
   .promo__container {
-    padding: 183px 10px 40px 10px;
+    padding: 257px 10px 40px 10px;
     height: 630px;
   }
 
