@@ -9,7 +9,7 @@ import Header from '../Header/Header';
 
 function Main(props) {
   return (
-    <>
+    <main>
       <Header/>
       <Promo/>
       <AboutProject/>
@@ -17,7 +17,7 @@ function Main(props) {
       <AboutMe/>
       <Portfolio/>
       <Footer/>
-    </>
+    </main>
   );
 }
 

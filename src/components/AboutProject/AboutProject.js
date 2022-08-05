@@ -4,7 +4,7 @@ import LandingHeading from '../LandingHeading/LandingHeading';
 
 function AboutProject() {
   return (
-    <div className="about-project">
+    <section className="about-project">
       <LandingHeading section="about-project">
         О проекте
       </LandingHeading>
@@ -32,7 +32,7 @@ function AboutProject() {
         <p className="about-project__caption">Back-end</p>
         <p className="about-project__caption">Front-end</p>
       </div>
-    </div>
+    </section>
   );
 }
 

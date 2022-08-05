@@ -11,9 +11,9 @@ function MoviesCardList({cardButton}) {
         <MoviesCard cardButton={cardButton}/>
         <MoviesCard cardButton={cardButton}/>
       </ul>
-      <div className="movie-card-list__add-more">
+      <section className="movie-card-list__add-more">
         <button className="movie-card-list__add-more-button">Ещё</button>
-      </div>
+      </section>
     </section>
   );
 }
