@@ -38,6 +38,8 @@ function App() {
         </Route>
         <Route path="/profile">
           <Profile
+            menuOpened={menuOpened}
+            setMenuOpened={setMenuOpened}
             userName="Михаил"
             userEmail="qwe@qwe.com"
             loggedIn={loggedIn}
