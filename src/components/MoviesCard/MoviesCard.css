@@ -67,7 +67,6 @@
   background-image: url('../../images/movie-card__button_type_active.svg');
 }
 
-
 .movie-card__button_type_like {
   background-image: url('../../images/movie-card__button_type_default.svg');
 }
@@ -113,7 +112,6 @@
   .movie-card__thumbnail {
     height: 168px;
   }
-
 
   .movie-card__title {
     font-size: 12px;
