@@ -4,17 +4,24 @@
   justify-content: center;
   align-items: center;
   padding: 70px 70px 0 70px;
+  max-width: 1280px;
+  width: 100%;
+  box-sizing: border-box;
+
 }
 
 .movie-card-list__grid {
   display: grid;
-
-  grid-template-columns: 1fr 1fr 1fr;
+  box-sizing: border-box;
+  grid-template-columns: repeat(auto-fit, 364px);
   grid-template-rows: auto;
   gap: 37px 24px;
   max-width: 1140px;
   margin: 0 auto;
   padding: 0 0 10px 0;
+  width: 100%;
+  justify-items: center;
+  justify-content: center;
 }
 
 .movie-card-list__add-more {
@@ -51,7 +58,7 @@
   }
 
   .movie-card-list__grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fill, 339px);
     justify-items: center;
     gap: 30px;
     padding: 0 0 30px 0;

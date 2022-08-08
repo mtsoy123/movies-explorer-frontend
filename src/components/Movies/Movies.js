@@ -5,10 +5,13 @@ import SearchForm from '../SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 
-function Movies({loggedIn}) {
+function Movies({menuOpened, setMenuOpened, loggedIn}) {
   return (
     <>
-      <Header loggedIn={loggedIn}/>
+      <Header
+        menuOpened={menuOpened}
+        setMenuOpened={setMenuOpened}
+        loggedIn={loggedIn}/>
       <Preloader/>
       <SearchForm/>
       <MoviesCardList cardButton="like"/>

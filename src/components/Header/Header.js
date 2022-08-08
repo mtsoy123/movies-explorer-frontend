@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './Header.css'
 import logo from '../../images/logo.svg'
 import {Link, NavLink} from 'react-router-dom';
 
-function Header({loggedIn}) {
-  const [menuOpened, setMenuOpened] = useState(false);
+function Header({loggedIn, menuOpened, setMenuOpened}) {
+  // const [menuOpened, setMenuOpened] = useState(false);
 
-  function openMenu() {
+  function toggleMenu() {
     setMenuOpened(!menuOpened)
   }
 
@@ -19,7 +19,7 @@ function Header({loggedIn}) {
         {loggedIn
           ?
           <>
-            <button onClick={openMenu}
+            <button onClick={toggleMenu}
                     className="header__button header__navigation-container__type_menu-button"/>
             <ul
               className={`header__navigation-container ${menuOpened && 'header__navigation-container_opened'}`}>
@@ -41,7 +41,7 @@ function Header({loggedIn}) {
               </li>
             </ul>
             {menuOpened &&
-              <button className="header__button  header__button_type_close"/>}
+              <button onClick={toggleMenu} className="header__button  header__button_type_close"/>}
           </>
           :
           <div className="header__button-container">

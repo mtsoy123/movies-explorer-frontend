@@ -7,10 +7,13 @@ import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 
-function Main(props) {
+function Main({menuOpened, setMenuOpened}) {
   return (
     <main>
-      <Header/>
+      <Header
+        menuOpened={menuOpened}
+        setMenuOpened={setMenuOpened}
+      />
       <Promo/>
       <AboutProject/>
       <Techs/>

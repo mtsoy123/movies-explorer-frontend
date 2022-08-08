@@ -32,7 +32,8 @@
   line-height: 16px;
   text-decoration: none;
   background-color: rgba(0, 0, 0, 0);
-  border: 0
+  border: 0;
+  cursor: pointer;
 }
 
 .header__button-container {
@@ -195,6 +196,7 @@
     height: 18px;
     top: 29px;
     right: 29px;
+    z-index: 2;
   }
 }
 

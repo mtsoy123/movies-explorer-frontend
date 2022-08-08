@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './Profile.css'
 import Header from '../Header/Header';
 
-function Profile({userName, userEmail, loggedIn}) {
+function Profile({userName, userEmail, menuOpened, setMenuOpened, loggedIn}) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEdit, setIsEdit] = useState(false)
   console.log(loggedIn)
@@ -14,7 +14,10 @@ function Profile({userName, userEmail, loggedIn}) {
 
   return (
     <>
-      <Header loggedIn={loggedIn}/>
+      <Header
+        menuOpened={menuOpened}
+        setMenuOpened={setMenuOpened}
+        loggedIn={loggedIn}/>
       <section className="profile">
         <h1 className="profile__header">Привет, {userName}!</h1>
         <form className="profile__form">

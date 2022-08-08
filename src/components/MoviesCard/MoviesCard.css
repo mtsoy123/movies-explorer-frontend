@@ -6,6 +6,7 @@
   border-radius: 6px;
   background: #222;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+  margin: auto;
 }
 
 .movie-card__thumbnail {

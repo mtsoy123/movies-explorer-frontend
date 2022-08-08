@@ -4,10 +4,13 @@ import SearchForm from '../SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 
-function SavedMovies({loggedIn}) {
+function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
   return (
     <>
-      <Header loggedIn={loggedIn}/>
+      <Header
+        menuOpened={menuOpened}
+        setMenuOpened={setMenuOpened}
+        loggedIn={loggedIn}/>
       <SearchForm/>
       <MoviesCardList cardButton="delete"/>
       <Footer/>
