@@ -17,9 +17,11 @@ function AboutMe(props) {
         <img className="about-me__photo" src={photo} alt="Фото"/>
         <div className="about-me__social-link-container">
           {/*Нет facebook, указал linkedin*/}
-          <a href="https://www.linkedin.com/in/mikhail-tsoy/"
+          <a target="_blank" rel="noopener noreferrer"
+             href="https://www.linkedin.com/in/mikhail-tsoy/"
              className="about-me__social-link">Linkedin</a>
-          <a href="https://github.com/mtsoy123" className="about-me__social-link">Github</a>
+          <a target="_blank" rel="noopener noreferrer" href="https://github.com/mtsoy123"
+             className="about-me__social-link">Github</a>
         </div>
       </div>
 
