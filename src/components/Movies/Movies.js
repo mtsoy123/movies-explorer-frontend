@@ -4,6 +4,7 @@ import Preloader from '../Preloader/Preloader';
 import SearchForm from '../SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import './Movies.css'
 
 function Movies({menuOpened, setMenuOpened, loggedIn}) {
   return (
@@ -12,9 +13,11 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
         menuOpened={menuOpened}
         setMenuOpened={setMenuOpened}
         loggedIn={loggedIn}/>
-      <Preloader/>
-      <SearchForm/>
-      <MoviesCardList cardButton="like"/>
+      <main className="movies">
+        <Preloader/>
+        <SearchForm/>
+        <MoviesCardList cardButton="like"/>
+      </main>
       <Footer/>
     </>
   );

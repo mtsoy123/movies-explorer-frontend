@@ -14,7 +14,6 @@ function App() {
   const [menuOpened, setMenuOpened] = useState(false);
 
   return (
-    // <section className={`app /*${ && app_type_modal_opened}*/`}>
     <section className={`app ${menuOpened && 'app_type_modal_opened'}`}>
       <Switch>
         <Route exact path="/">
@@ -54,8 +53,6 @@ function App() {
           <NotFound/>
         </Route>
       </Switch>
-
-
     </section>
   );
 }

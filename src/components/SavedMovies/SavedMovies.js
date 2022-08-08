@@ -3,6 +3,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import './SavedMovies.css'
 
 function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
   return (
@@ -11,8 +12,10 @@ function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
         menuOpened={menuOpened}
         setMenuOpened={setMenuOpened}
         loggedIn={loggedIn}/>
-      <SearchForm/>
-      <MoviesCardList cardButton="delete"/>
+      <main className="saved-movies">
+        <SearchForm/>
+        <MoviesCardList cardButton="delete"/>
+      </main>
       <Footer/>
     </>
   );

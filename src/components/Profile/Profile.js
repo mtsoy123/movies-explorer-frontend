@@ -18,7 +18,7 @@ function Profile({userName, userEmail, menuOpened, setMenuOpened, loggedIn}) {
         menuOpened={menuOpened}
         setMenuOpened={setMenuOpened}
         loggedIn={loggedIn}/>
-      <section className="profile">
+      <main className="profile">
         <h1 className="profile__header">Привет, {userName}!</h1>
         <form className="profile__form">
           <label className="profile__label profile__label-divider">
@@ -30,14 +30,15 @@ function Profile({userName, userEmail, menuOpened, setMenuOpened, loggedIn}) {
             <input className="profile__input" disabled={isDisabled} value={userEmail}/>
           </label>
         </form>
-        <button className={`profile__button ${isEdit && 'profile__button_type_primary'}`}
+        <button type="button"
+                className={`profile__button ${isEdit && 'profile__button_type_primary'}`}
                 onClick={edit}>Редактировать
         </button>
-        <button
-          className={`profile__button profile__button_type_warning ${isEdit && 'profile__button_type_hidden'}`}>Выйти
+        <button type="button"
+                className={`profile__button profile__button_type_warning ${isEdit && 'profile__button_type_hidden'}`}>Выйти
           из аккаунта
         </button>
-      </section>
+      </main>
     </>
   );
 }

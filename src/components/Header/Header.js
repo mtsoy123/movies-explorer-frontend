@@ -19,7 +19,7 @@ function Header({loggedIn, menuOpened, setMenuOpened}) {
         {loggedIn
           ?
           <>
-            <button onClick={toggleMenu}
+            <button type="button" onClick={toggleMenu}
                     className="header__button header__navigation-container__type_menu-button"/>
             <ul
               className={`header__navigation-container ${menuOpened && 'header__navigation-container_opened'}`}>
@@ -41,7 +41,8 @@ function Header({loggedIn, menuOpened, setMenuOpened}) {
               </li>
             </ul>
             {menuOpened &&
-              <button onClick={toggleMenu} className="header__button  header__button_type_close"/>}
+              <button type="button" onClick={toggleMenu}
+                      className="header__button  header__button_type_close"/>}
           </>
           :
           <div className="header__button-container">

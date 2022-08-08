@@ -1,8 +1,8 @@
 .auth-header {
   width: 100%;
   padding: 70px 0 40px 0;
-
   box-sizing: border-box;
+  max-width: 396px;
 }
 
 .auth-header__logo {

@@ -95,6 +95,10 @@
 }
 
 @media screen and (max-width: 500px) {
+  .techs {
+    background-color: #202020;
+  }
+
   .techs__container {
     padding: 70px 14px;
   }
@@ -115,7 +119,6 @@
   .techs__tech-container {
     display: flex;
     padding: 0 56px;
-    /*width: 100%;/*/
   }
 
   .techs__tech {

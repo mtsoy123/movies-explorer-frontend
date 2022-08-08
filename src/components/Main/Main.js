@@ -6,21 +6,24 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import './Main.css'
 
 function Main({menuOpened, setMenuOpened}) {
   return (
-    <main>
+    <>
       <Header
         menuOpened={menuOpened}
         setMenuOpened={setMenuOpened}
       />
-      <Promo/>
-      <AboutProject/>
-      <Techs/>
-      <AboutMe/>
-      <Portfolio/>
+      <main className="main">
+        <Promo/>
+        <AboutProject/>
+        <Techs/>
+        <AboutMe/>
+        <Portfolio/>
+      </main>
       <Footer/>
-    </main>
+    </>
   );
 }
 
