@@ -2,14 +2,21 @@ import React from 'react';
 import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm(props) {
+function SearchForm({handleSubmit, setIsShort, setMovieQuery, movieQuery}) {
+  function handleChange(event) {
+    setMovieQuery(event.target.value);
+  }
+
   return (
     <section className="search-form">
-      <div className="search-form__input-container">
-        <input required={true} className="search-form__input" type="text" placeholder="Фильм"/>
-        <input className="search-form__button" type="submit" value="Поиск"/>
-      </div>
-      <FilterCheckbox/>
+      <form noValidate={true} onSubmit={handleSubmit} className="search-form__input-container">
+        <input name="inputQuery" required={true} className="search-form__input" type="text"
+               placeholder="Фильм" onChange={handleChange} value={movieQuery}/>
+        <button className="search-form__button" type="submit">Поиск</button>
+      </form>
+      <FilterCheckbox
+        setIsShort={setIsShort}
+      />
     </section>
   );
 }

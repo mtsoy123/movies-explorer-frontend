@@ -1,0 +1,24 @@
+.movie-list-error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 70px 70px 0 70px;
+  max-width: 1280px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.movie-list-error__text {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 58px;
+
+  text-align: center;
+  letter-spacing: -0.04em;
+
+  color: #fff;
+  max-width: 600px;
+}

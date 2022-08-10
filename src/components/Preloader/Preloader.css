@@ -42,7 +42,6 @@
 .preloader {
   box-sizing: border-box;
   display: none;
-  /*display: flex;*/
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -63,7 +62,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: #3DDC84;
+  background: #3ddc84;
   border-radius: 50px;
 }
 
@@ -85,6 +84,10 @@
 
 .preloader__round::before {
   z-index: 10;
-  background: #3DDC84;
+  background: #3ddc84;
   animation: preloader-inside-red 1s ease-in-out infinite;
+}
+
+.preloader_type_visible {
+  display: flex;
 }
