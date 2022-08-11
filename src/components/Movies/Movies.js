@@ -71,7 +71,7 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
         {isLoading && <Preloader
           isLoading={isLoading}
         />}
-
+        {/*todo add adaptive styles*/}
         {errorMessage && (<MovieListError
           errorText={errorMessage}
         />)}
