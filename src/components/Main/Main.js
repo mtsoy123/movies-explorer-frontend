@@ -8,12 +8,13 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import './Main.css'
 
-function Main({menuOpened, setMenuOpened}) {
+function Main({menuOpened, setMenuOpened, loggedIn}) {
   return (
     <>
       <Header
         menuOpened={menuOpened}
         setMenuOpened={setMenuOpened}
+        loggedIn={loggedIn}
       />
       <main className="main">
         <Promo/>

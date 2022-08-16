@@ -6,6 +6,7 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import './Movies.css'
 import {movieApi} from '../../utils/MoviesApi';
+import {mainApi} from '../../utils/MainApi';
 import MovieListError from '../MovieListError/MovieListError';
 
 function Movies({menuOpened, setMenuOpened, loggedIn}) {
@@ -15,7 +16,38 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
   const [showMovieCardList, setShowMovieCardList] = useState(false);
   const [isShort, setIsShort] = useState(false);
   const [movieQuery, setMovieQuery] = useState('');
-  const isInitialMount = useRef(true);
+  // const isInitialMount = useRef(true);
+  const [isLiked, setIsLiked] = useState(false);
+
+  function handleCardLike(movieProps) {
+    /*
+    * Получить массив фильмов с мейнапи
+    * Найти в массиве фильм, который хотим лайкнуть
+    * Если есть, то удалить фильм
+    * Если нет, то лайкнуть фильм
+    * */
+    mainApi.getMovies()
+    .then((myMovies) => {
+      return myMovies.id.some(i => i === movieProps.id)
+    })
+    .then((movie) => {
+      // получаем фильм, соответствующий айди
+      // если фильм не пришел — лайк
+      // если фильм пришел — дизлайк
+      // todo вернуться и протестировать
+      console.log(movie)
+
+      if (!movie) {
+        mainApi.likeMovie(movieProps)
+
+        return
+      }
+
+      return mainApi.deleteMovie(movie.id)
+
+    })
+    .catch(err => console.log(err))
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,14 +59,12 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
       setIsLoading(false);
       return setErrorMessage('Нужно ввести ключевое слово');
     }
-
     movieApi.getMovies()
     .then((moviesArr) => {
       setShowMovieCardList(true);
       localStorage.setItem('moviesArr', JSON.stringify(moviesArr));
       localStorage.setItem('inputQuery', event.target.inputQuery.value);
       localStorage.setItem('isShort', isShort);
-      // todo дальше фильтрация вместо setmovies
       setMovies(moviesArr);
     })
     .then(() => {
@@ -44,9 +74,7 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
   }
 
   useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
+    if (localStorage.getItem('moviesArr')) {
       setMovies(JSON.parse(localStorage.getItem('moviesArr')));
       setMovieQuery(localStorage.getItem('inputQuery'));
       setIsShort(localStorage.getItem('isShort'));
@@ -79,6 +107,8 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
         {showMovieCardList && (<MoviesCardList
           cardButton="like"
           movies={movies}
+          handleCardLike={handleCardLike}
+          isLiked={isLiked}
         />)
 
         }

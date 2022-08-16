@@ -64,12 +64,12 @@
   transition: opacity .3s ease-out;
 }
 
-.movie-card__button_type_active {
-  background-image: url('../../images/movie-card__button_type_active.svg');
-}
-
 .movie-card__button_type_like {
   background-image: url('../../images/movie-card__button_type_default.svg');
+}
+
+.movie-card__button_type_active {
+  background-image: url('../../images/movie-card__button_type_active.svg');
 }
 
 .movie-card__button_type_delete {

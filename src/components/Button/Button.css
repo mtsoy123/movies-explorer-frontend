@@ -20,6 +20,35 @@
   opacity: 0.8;
 }
 
+.button:disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+}
+
+.button__error {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+
+  text-align: center;
+
+  color: #ff004c;
+
+  padding-bottom: 20px;
+  display: none;
+  width: 100%;
+
+  position: absolute;
+  bottom: 65px;
+  left: 0;
+}
+
+.button__error_type_visible {
+  display: block;
+}
+
 @media screen and (max-width: 500px) {
   .button {
     font-size: 12px;
