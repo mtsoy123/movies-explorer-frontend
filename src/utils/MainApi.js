@@ -10,23 +10,79 @@ class MainApi {
   }
 
   getMovies() {
-    return this._checkResponse(`${this._baseUrl}/`, {
-      method: 'POST',
+    return this._checkResponse(`${this._baseUrl}/movies`, {
+      method: 'GET',
       headers: this._headers,
       credentials: 'include',
     })
   }
 
-  likeMovie() {
-    return this._checkResponse(`${this._baseUrl}/`, {
+  /*  changeCardStatus(movie, isLiked) {
+      if (isLiked === false) {
+        this.likeMovie(movie)
+        .then(r => {
+          return r
+        });
+      } else {
+        this.deleteMovie(movie)
+        .then(r => {
+          return r
+        });
+      }
+    }*/
+
+  changeCardStatus(movie, isLiked) {
+    if (isLiked === false) {
+      return this._checkResponse(`${this._baseUrl}/movies`, {
+        method: 'POST',
+        headers: this._headers,
+        credentials: 'include',
+        body: JSON.stringify({
+          country: movie.country,
+          director: movie.director,
+          duration: movie.duration,
+          year: movie.year,
+          description: movie.description,
+          image: `https://api.nomoreparties.co${movie.image.url}`,
+          trailerLink: movie.trailerLink,
+          nameRU: movie.nameRU,
+          nameEN: movie.nameEN,
+          thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+          movieId: movie.id,
+        })
+      })
+    } else {
+      return this._checkResponse(`${this._baseUrl}/movies/${movie._id}`, {
+        method: 'DELETE',
+        headers: this._headers,
+        credentials: 'include',
+      })
+    }
+  }
+
+  likeMovie(movie) {
+    return this._checkResponse(`${this._baseUrl}/movies`, {
       method: 'POST',
       headers: this._headers,
       credentials: 'include',
+      body: JSON.stringify({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `https://api.nomoreparties.co${movie.image.url}`,
+        trailerLink: movie.trailerLink,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+        thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+        movieId: movie.id,
+      })
     })
   }
 
   deleteMovie(id) {
-    return this._checkResponse(`${this._baseUrl}/${id}`, {
+    return this._checkResponse(`${this._baseUrl}/movies/${id}`, {
       method: 'DELETE',
       headers: this._headers,
       credentials: 'include',

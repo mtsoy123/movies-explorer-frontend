@@ -1,21 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './MoviesCard.css'
 
 function MoviesCard({
                       cardButton,
-                      isLiked,
+                      // isLiked,
                       imgSrc,
                       movieDuration,
                       movieTitle,
-                      handleCardLike,
+                      handleCardAction,
                       cardProps
                     }) {
+  // const [isLiked, setIsLiked] = useState(false);
+  const isLiked = cardProps.owner;
+  // console.log(cardProps.owner)
+
   const cardLikeButtonClassName = (
     `${isLiked && 'movie-card__button_type_active'}`
   );
 
   function onClick() {
-    handleCardLike(cardProps)
+    handleCardAction(cardProps)
 
     // todo check following
     // setIsLiked(true)
