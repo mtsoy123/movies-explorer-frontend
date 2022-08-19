@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Register.css'
 import AuthHeader from '../AuthHeader/AuthHeader';
 import AuthContainer from '../AuthContainer/AuthContainer';
@@ -9,7 +9,6 @@ import AuthCaption from '../AuthCaption/AuthCaption';
 import {useFormWithValidation} from '../../hooks/useFormValidation';
 import {mainApi} from '../../utils/MainApi';
 import {useHistory} from 'react-router-dom';
-import userContext from '../../context/userContext';
 
 function Register({setLoggedIn}) {
 
@@ -25,11 +24,8 @@ function Register({setLoggedIn}) {
     passwordValidation
   } = useFormWithValidation();
 
-  const {setCurrentUser} = useContext(userContext);
   const [formError, setFormError] = useState(false);
-  console.log(values);
   const formId = 'signupForm';
-
 
   useEffect(() => {
     resetForm()
@@ -40,16 +36,11 @@ function Register({setLoggedIn}) {
     const target = event.target;
 
     mainApi.signup(target.email.value, target.password.value, target.name.value)
-    .then((data) => {
+    .then(() => {
       mainApi.signin(target.email.value, target.password.value)
-      .then(res => {
-        console.log('res after signin', res)
-        resetForm();
-        setCurrentUser(res.user);
-        if (res) {
-          history.push('/movies');
-          setLoggedIn(true);
-        }
+      .then(() => {
+        setLoggedIn(true)
+        history.push('/movies')
       })
     })
     .catch(() => {

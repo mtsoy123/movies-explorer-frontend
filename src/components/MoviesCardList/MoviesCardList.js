@@ -2,7 +2,6 @@ import React from 'react';
 import './MoviesCardList.css'
 
 function MoviesCardList({
-                          movies,
                           showMovies,
                           renderMovies,
                           children
@@ -11,7 +10,7 @@ function MoviesCardList({
   return (
     <section className="movie-card-list">
       <ul className="movie-card-list__grid">
-        {renderMovies(movies, showMovies)}
+        {renderMovies(showMovies)}
       </ul>
       {children}
     </section>

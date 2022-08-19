@@ -4,7 +4,6 @@ import logo from '../../images/logo.svg'
 import {Link, NavLink} from 'react-router-dom';
 
 function Header({loggedIn, menuOpened, setMenuOpened}) {
-  // const [menuOpened, setMenuOpened] = useState(false);
 
   function toggleMenu() {
     setMenuOpened(!menuOpened)

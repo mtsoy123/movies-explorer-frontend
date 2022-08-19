@@ -9,25 +9,44 @@ import {useHistory} from 'react-router-dom';
 function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEdit, setIsEdit] = useState(false)
-  const {values, nameValidation, emailValidation} = useFormWithValidation();
+  const {values, errors, nameValidation, emailValidation} = useFormWithValidation();
   const [isSuccess, setIsSuccess] = useState(false);
 
   function edit() {
     setIsEdit(!isEdit);
     setIsDisabled(!isDisabled);
+    validateSameValue();
   }
 
   const {currentUser, setCurrentUser} = useContext(userContext);
   const history = useHistory();
-  console.log(currentUser)
   const {name, email} = currentUser;
+  const [disabledButton, setDisabledButton] = useState(false);
 
   useEffect(() => {
     values.name = name;
     values.email = email;
-    console.log(values.name)
-    console.log(values.email)
   }, [currentUser])
+
+  useEffect(() => {
+    validateSameValue();
+  }, [values.name, values.email])
+
+  function handleChange(event) {
+    if (event.target.name === 'name') {
+      nameValidation(event)
+    } else {
+      emailValidation(event)
+    }
+  }
+
+  function validateSameValue() {
+    if ((errors.name || errors.email) || isEdit && (((values.name === name) && (values.email === email)) || ((values.name === '') || (values.name === '')))) {
+      setDisabledButton(true)
+    } else {
+      setDisabledButton(false)
+    }
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -42,7 +61,7 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
   function handleSignout() {
     mainApi.signOut()
     .then(() => {
-      localStorage.removeItem('token');
+      localStorage.removeItem('jwt');
       setLoggedIn(false);
       history.push('/');
     })
@@ -60,18 +79,21 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
         <form className="profile__form" onSubmit={handleSubmit}>
           <label className="profile__label profile__label-divider">
             Имя
-            <input onChange={nameValidation} className="profile__input" disabled={isDisabled}
-                   value={values.name || name} name="name" required={true}/>
+            <input onChange={handleChange} className="profile__input" disabled={isDisabled}
+                   value={values.name || ''} name="name" required={true}/>
+            <span className="profile__input-error-message">{errors.name || ' '}</span>
           </label>
           <label className="profile__label">
             Email
-            <input onChange={emailValidation} className="profile__input" disabled={isDisabled}
-                   value={values.email || email} name="email" required={true}/>
+            <input onChange={handleChange} className="profile__input" disabled={isDisabled}
+                   value={values.email || ''} name="email" required={true}/>
+            <span
+              className="profile__input-error-message profile__input-error-message_type_email">{errors.email || ' '}</span>
           </label>
 
           <button type={isEdit ? 'button' : 'submit'}
                   className={`profile__button profile__button_type_edit ${isEdit && 'profile__button_type_primary'}`}
-                  onClick={edit}>Редактировать
+                  onClick={edit} disabled={disabledButton}>Редактировать
           </button>
 
           <button type="button"

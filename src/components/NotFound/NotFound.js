@@ -4,7 +4,6 @@ import {useHistory} from 'react-router-dom';
 
 function NotFound(props) {
   const history = useHistory();
-  console.log(history)
 
   return (
     <main className="not-found">

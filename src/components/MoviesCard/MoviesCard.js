@@ -3,31 +3,31 @@ import './MoviesCard.css'
 
 function MoviesCard({
                       cardButton,
-                      // isLiked,
                       imgSrc,
                       movieDuration,
                       movieTitle,
                       handleCardAction,
-                      cardProps
+                      cardProps,
+                      trailerLink
                     }) {
-  // const [isLiked, setIsLiked] = useState(false);
-  const isLiked = cardProps.owner;
-  // console.log(cardProps.owner)
-
+  const liked = cardProps.liked;
   const cardLikeButtonClassName = (
-    `${isLiked && 'movie-card__button_type_active'}`
+    `${liked && 'movie-card__button_type_active'}`
   );
 
   function onClick() {
     handleCardAction(cardProps)
+  }
 
-    // todo check following
-    // setIsLiked(true)
+  function openTrailer() {
+    const newWindow = window.open(trailerLink, '_blank', 'noopener,noreferrer')
+    if (newWindow) newWindow.opener = null
   }
 
   return (
     <li className="movie-card">
-      <img className="movie-card__thumbnail" src={imgSrc} alt={movieTitle}/>
+      <img className="movie-card__thumbnail" onClick={() => openTrailer()} src={imgSrc}
+           alt={movieTitle}/>
       <div className="movie-card__container">
         <h2 className="movie-card__title">{movieTitle}</h2>
         <button type="button"

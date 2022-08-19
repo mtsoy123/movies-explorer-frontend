@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Login.css'
 import Input from '../Input/Input';
 import Button from '../Button/Button';
@@ -9,8 +9,6 @@ import AuthForm from '../AuthForm/AuthForm';
 import {useHistory} from 'react-router-dom';
 import {useFormWithValidation} from '../../hooks/useFormValidation';
 import {mainApi} from '../../utils/MainApi';
-import userContext from '../../context/userContext';
-
 
 function Login({setLoggedIn}) {
   const history = useHistory();
@@ -23,11 +21,7 @@ function Login({setLoggedIn}) {
     passwordValidation
   } = useFormWithValidation();
   const [formError, setFormError] = useState(false);
-
   const formId = 'signinForm';
-
-  const {currentUser, setCurrentUser} = useContext(userContext);
-
   useEffect(() => {
     resetForm()
   }, [])
@@ -37,32 +31,12 @@ function Login({setLoggedIn}) {
     const target = event.target;
     mainApi.signin(target.email.value, target.password.value)
     .then(() => {
-      checkToken();
-    })
-    .then(res => {
-      resetForm();
+      setLoggedIn(true)
+      history.push('/movies')
     })
     .catch(() => {
       setFormError(true)
     })
-  }
-
-  function checkToken() {
-    const token = localStorage.getItem('jwt');
-
-    if (token) {
-      mainApi.getProfile(token)
-      .then((res) => {
-        if (res) {
-          setCurrentUser(res.user);
-          setLoggedIn(true);
-          history.push('/movies')
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    }
   }
 
   return (

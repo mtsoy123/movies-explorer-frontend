@@ -1,7 +1,7 @@
 import './App.css';
 import Main from '../Main/Main';
-import {useEffect, useState} from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {useContext, useEffect, useState} from 'react';
+import {Route, Switch, useHistory, useLocation} from 'react-router-dom';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
@@ -10,61 +10,74 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import userContext from '../../context/userContext';
 import {mainApi} from '../../utils/MainApi';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [menuOpened, setMenuOpened] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(useContext(userContext));
+  const history = useHistory();
+  const location = useLocation();
 
-
-  /*useEffect(() => {
-    console.log(currentUser)
-  }, [currentUser])*/
   useEffect(() => {
-    mainApi.getProfile()
-    .then(res => {
-      setCurrentUser({
-        email: res.email,
-        name: res.name
-      })
-    })
+    checkToken()
   }, [])
+
+  function checkToken() {
+    const path = location.pathname;
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      mainApi.getProfile(token)
+      .then((res) => {
+        if (res) {
+          setLoggedIn(true)
+          setCurrentUser({
+            email: res.email,
+            name: res.name
+          });
+          history.push(path)
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
+  }
 
   return (
     <userContext.Provider value={{currentUser, setCurrentUser}}>
       <section className={`app ${menuOpened && 'app_type_modal_opened'}`}>
         <Switch>
-          <Route exact path="/">
-            <Main
-              loggedIn={loggedIn}
-              menuOpened={menuOpened}
-              setMenuOpened={setMenuOpened}
-            />
-          </Route>
-          <Route path="/movies">
-            <Movies
-              menuOpened={menuOpened}
-              setMenuOpened={setMenuOpened}
-              loggedIn={loggedIn}
-            />
-          </Route>
-          <Route path="/saved-movies">
-            <SavedMovies
-              menuOpened={menuOpened}
-              setMenuOpened={setMenuOpened}
-              loggedIn={loggedIn}
-            />
-          </Route>
-          <Route path="/profile">
-            <Profile
-              menuOpened={menuOpened}
-              setMenuOpened={setMenuOpened}
-              // userName="Михаил"
-              // userEmail="qwe@qwe.com"
-              loggedIn={loggedIn}
-              setLoggedIn={setLoggedIn}
-            />
-          </Route>
+          <ProtectedRoute
+            exact
+            path="/movies"
+            loggedIn={loggedIn}
+
+            component={Movies}
+            menuOpened={menuOpened}
+            setMenuOpened={setMenuOpened}
+          />
+
+          <ProtectedRoute
+            exact
+            path="/saved-movies"
+            loggedIn={loggedIn}
+
+            component={SavedMovies}
+            menuOpened={menuOpened}
+            setMenuOpened={setMenuOpened}
+          />
+
+          <ProtectedRoute
+            exact
+            path="/profile"
+            loggedIn={loggedIn}
+
+            component={Profile}
+            menuOpened={menuOpened}
+            setMenuOpened={setMenuOpened}
+            setLoggedIn={setLoggedIn}
+          />
           <Route path="/signin">
             <Login
               setLoggedIn={setLoggedIn}
@@ -75,7 +88,17 @@ function App() {
               setLoggedIn={setLoggedIn}
             />
           </Route>
-          <Route path="/404">
+          <Route
+            exact
+            path="/">
+
+            <Main
+              loggedIn={loggedIn}
+              menuOpened={menuOpened}
+              setMenuOpened={setMenuOpened}
+            />
+          </Route>
+          <Route path="*">
             <NotFound/>
           </Route>
         </Switch>

@@ -17,42 +17,28 @@ class MainApi {
     })
   }
 
-  /*  changeCardStatus(movie, isLiked) {
-      if (isLiked === false) {
-        this.likeMovie(movie)
-        .then(r => {
-          return r
-        });
-      } else {
-        this.deleteMovie(movie)
-        .then(r => {
-          return r
-        });
-      }
-    }*/
-
-  changeCardStatus(movie, isLiked) {
-    if (isLiked === false) {
+  changeCardStatus(movieProps, likedMovie) {
+    if (likedMovie.length === 0) {
       return this._checkResponse(`${this._baseUrl}/movies`, {
         method: 'POST',
         headers: this._headers,
         credentials: 'include',
         body: JSON.stringify({
-          country: movie.country,
-          director: movie.director,
-          duration: movie.duration,
-          year: movie.year,
-          description: movie.description,
-          image: `https://api.nomoreparties.co${movie.image.url}`,
-          trailerLink: movie.trailerLink,
-          nameRU: movie.nameRU,
-          nameEN: movie.nameEN,
-          thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-          movieId: movie.id,
+          country: movieProps.country,
+          director: movieProps.director,
+          duration: movieProps.duration,
+          year: movieProps.year,
+          description: movieProps.description,
+          image: `https://api.nomoreparties.co${movieProps.image.url}`,
+          trailerLink: movieProps.trailerLink,
+          nameRU: movieProps.nameRU,
+          nameEN: movieProps.nameEN,
+          thumbnail: `https://api.nomoreparties.co${movieProps.image.formats.thumbnail.url}`,
+          movieId: movieProps.id,
         })
       })
     } else {
-      return this._checkResponse(`${this._baseUrl}/movies/${movie._id}`, {
+      return this._checkResponse(`${this._baseUrl}/movies/${likedMovie[0]._id}`, {
         method: 'DELETE',
         headers: this._headers,
         credentials: 'include',
@@ -98,6 +84,7 @@ class MainApi {
     .then((res) => {
       return res;
     })
+    .catch(err => console.log(err))
   }
 
   signin(email, password) {
@@ -117,6 +104,7 @@ class MainApi {
         return data;
       }
     })
+    .catch(err => console.log(err))
   }
 
   getProfile(token) {
@@ -140,6 +128,7 @@ class MainApi {
     .then((res) => {
       return res
     })
+    .catch(err => console.log(err))
   }
 
   updateProfile(email, name) {
