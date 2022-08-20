@@ -62,7 +62,6 @@ function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
   function handleDeleteMovie(movieProps) {
     mainApi.getMovies()
     .then(res => {
-      console.log(res);
       return res.filter(m => m.movieId === movieProps.id);
     })
     .then(likedMovie => {
