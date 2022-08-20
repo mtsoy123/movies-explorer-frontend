@@ -18,7 +18,9 @@ class MainApi {
   }
 
   changeCardStatus(movieProps, likedMovie) {
+    console.log(likedMovie)
     if (likedMovie.length === 0) {
+      console.log(123)
       return this._checkResponse(`${this._baseUrl}/movies`, {
         method: 'POST',
         headers: this._headers,
@@ -38,6 +40,7 @@ class MainApi {
         })
       })
     } else {
+      console.log(likedMovie[0]._id);
       return this._checkResponse(`${this._baseUrl}/movies/${likedMovie[0]._id}`, {
         method: 'DELETE',
         headers: this._headers,
@@ -68,6 +71,7 @@ class MainApi {
   }
 
   deleteMovie(id) {
+    console.log(id);
     return this._checkResponse(`${this._baseUrl}/movies/${id}`, {
       method: 'DELETE',
       headers: this._headers,

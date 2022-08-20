@@ -45,6 +45,7 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
 
     mainApi.getMovies()
     .then(res => {
+      console.log(res);
       return res.filter(m => m.movieId === movieProps.id);
     })
     .then(likedMovie => {
@@ -121,7 +122,9 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
       return setErrorMessage('Ничего не найдено');
     }
 
-    setShowMoreVisibility(true)
+    if (moviesCount <= filteredArray) {
+      setShowMoreVisibility(true)
+    }
 
     if (moviesCount >= filteredArray.length && showMoreVisibility === true) {
       setShowMoreVisibility(false)

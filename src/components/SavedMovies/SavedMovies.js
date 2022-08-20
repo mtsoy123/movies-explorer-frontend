@@ -60,28 +60,34 @@ function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
   }
 
   function handleDeleteMovie(movieProps) {
-    mainApi.deleteMovie(movieProps._id)
-    .then(deletedMovie => {
-      const getNewMovieArray = (moviesArray) => {
-        return moviesArray.map((m) => {
-          if (m.id === deletedMovie.movieId) {
-            m.liked = !m.liked
-            return m
-          } else {
-            return m
-          }
-        })
-      }
-      const newMovieArray = getNewMovieArray(localStorageMovies);
-      setMovies(newMovieArray);
-      return newMovieArray
+    mainApi.getMovies()
+    .then(res => {
+      console.log(res);
+      return res.filter(m => m.movieId === movieProps.id);
     })
-    .then((res) => {
-      return localStorage.setItem('moviesArr', JSON.stringify(res))
-    })
-    .then(() => {
-      setShowMovieCardList(true);
-      renderMovies();
+    .then(likedMovie => {
+      return mainApi.deleteMovie(likedMovie[0]._id)
+      .then((editedMovie) => {
+        const getNewMovieArray = (moviesArray) => {
+          return moviesArray.map((m) => {
+            if (m.id === editedMovie.movieId) {
+              m.liked = !m.liked
+              return m
+            } else {
+              return m
+            }
+          })
+        }
+        const newMovieArray = getNewMovieArray(localStorageMovies);
+        setMovies(newMovieArray);
+        return newMovieArray;
+      })
+      .then((res) => {
+        return localStorage.setItem('moviesArr', JSON.stringify(res))
+      })
+      .then(() => {
+        renderMovies();
+      })
     })
     .catch(err => console.log(err))
   }
