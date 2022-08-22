@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './Register.css'
 import AuthHeader from '../AuthHeader/AuthHeader';
 import AuthContainer from '../AuthContainer/AuthContainer';
@@ -9,6 +9,7 @@ import AuthCaption from '../AuthCaption/AuthCaption';
 import {useFormWithValidation} from '../../hooks/useFormValidation';
 import {mainApi} from '../../utils/MainApi';
 import {useHistory} from 'react-router-dom';
+import userContext from '../../context/userContext';
 
 function Register({setLoggedIn}) {
 
@@ -26,6 +27,7 @@ function Register({setLoggedIn}) {
 
   const [formError, setFormError] = useState(false);
   const formId = 'signupForm';
+  const {currentUser, setCurrentUser} = useContext(userContext)
 
   useEffect(() => {
     resetForm()
@@ -37,11 +39,16 @@ function Register({setLoggedIn}) {
 
     mainApi.signup(target.email.value, target.password.value, target.name.value)
     .then(() => {
-      mainApi.signin(target.email.value, target.password.value)
-      .then(() => {
-        setLoggedIn(true)
-        history.push('/movies')
-      })
+      return mainApi.signin(target.email.value, target.password.value)
+    })
+    .then((token) => mainApi.getProfile(token))
+    .then((res) => {
+      setLoggedIn(true)
+      setCurrentUser({
+        email: res.email,
+        name: res.name
+      });
+      history.push('/movies')
     })
     .catch(() => {
       setFormError(true)

@@ -99,6 +99,7 @@ class MainApi {
       body: JSON.stringify({email, password})
     })
     .then((data) => {
+      console.log(data)
       if (data.token) {
         localStorage.setItem('jwt', data.token);
         return data;
@@ -131,17 +132,18 @@ class MainApi {
     .catch(err => console.log(err))
   }
 
-  updateProfile(email, name) {
+  updateProfile(name, email) {
     return this._checkResponse(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       credentials: 'include',
-      body: JSON.stringify({email, name}),
+      body: JSON.stringify({email: email, name: name}),
     })
   }
 }
 
 export const mainApi = new MainApi({
+  // baseUrl: 'http://localhost:3001',
   baseUrl: 'https://api.mtsoy123.nomoredomains.xyz',
   headers: {
     'Content-Type': 'application/json'

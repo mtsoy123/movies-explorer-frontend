@@ -11,6 +11,8 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
   const [isEdit, setIsEdit] = useState(false)
   const {values, errors, nameValidation, emailValidation} = useFormWithValidation();
   const [isSuccess, setIsSuccess] = useState(false);
+  const [nameValue, setNameValue] = useState('');
+  const [emailValue, setEmailValue] = useState('');
 
   function edit() {
     setIsEdit(!isEdit);
@@ -19,29 +21,38 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
   }
 
   const {currentUser, setCurrentUser} = useContext(userContext);
+  console.log(currentUser)
   const history = useHistory();
   const {name, email} = currentUser;
   const [disabledButton, setDisabledButton] = useState(false);
 
   useEffect(() => {
-    values.name = name;
-    values.email = email;
-  }, [currentUser])
+    setNameValue(name);
+    setEmailValue(email);
+  }, [])
+
+  /*  useEffect(() => {
+      values.name = name;
+      values.email = email;
+    }, [])*/
+
+  function handleNameChange(event) {
+    console.log(event.target.value)
+    nameValidation(event);
+    setNameValue(event.target.value)
+  }
+
+  function handleEmailChange(event) {
+    emailValidation(event);
+    setEmailValue(event.target.value);
+  }
 
   useEffect(() => {
     validateSameValue();
-  }, [values.name, values.email])
-
-  function handleChange(event) {
-    if (event.target.name === 'name') {
-      nameValidation(event)
-    } else {
-      emailValidation(event)
-    }
-  }
+  }, [nameValue, emailValue])
 
   function validateSameValue() {
-    if ((errors.name || errors.email) || isEdit && (((values.name === name) && (values.email === email)) || ((values.name === '') || (values.name === '')))) {
+    if ((errors.name || errors.email) || isEdit && (((nameValue === name) && (emailValue === email)) || ((nameValue === '') || (nameValue === '')))) {
       setDisabledButton(true)
     } else {
       setDisabledButton(false)
@@ -50,7 +61,7 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    mainApi.updateProfile(values.email, values.name)
+    mainApi.updateProfile(nameValue, emailValue)
     .then(res => {
       setCurrentUser(res)
       setIsSuccess(true);
@@ -61,6 +72,7 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
   function handleSignout() {
     mainApi.signOut()
     .then(() => {
+      setCurrentUser({});
       localStorage.removeItem('jwt');
       setLoggedIn(false);
       history.push('/');
@@ -79,14 +91,15 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
         <form className="profile__form" onSubmit={handleSubmit}>
           <label className="profile__label profile__label-divider">
             Имя
-            <input onChange={handleChange} className="profile__input" disabled={isDisabled}
-                   value={values.name || ''} name="name" required={true}/>
+            <input onChange={handleNameChange} className="profile__input"
+                   disabled={isDisabled}
+                   value={nameValue} name="name" required={true}/>
             <span className="profile__input-error-message">{errors.name || ' '}</span>
           </label>
           <label className="profile__label">
             Email
-            <input onChange={handleChange} className="profile__input" disabled={isDisabled}
-                   value={values.email || ''} name="email" required={true}/>
+            <input onChange={handleEmailChange} className="profile__input" disabled={isDisabled}
+                   value={emailValue} name="email" required={true}/>
             <span
               className="profile__input-error-message profile__input-error-message_type_email">{errors.email || ' '}</span>
           </label>

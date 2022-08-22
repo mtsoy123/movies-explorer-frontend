@@ -6,7 +6,6 @@ function MoviesCardList({
                           renderMovies,
                           children
                         }) {
-
   return (
     <section className="movie-card-list">
       <ul className="movie-card-list__grid">

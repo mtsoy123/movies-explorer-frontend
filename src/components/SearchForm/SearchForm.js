@@ -2,7 +2,7 @@ import React from 'react';
 import './SearchForm.css'
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({handleSubmit, setIsShort, setMovieQuery, movieQuery}) {
+function SearchForm({handleSubmit, setIsShort, setMovieQuery, movieQuery, isShort}) {
   function handleChange(event) {
     setMovieQuery(event.target.value);
   }
@@ -16,6 +16,7 @@ function SearchForm({handleSubmit, setIsShort, setMovieQuery, movieQuery}) {
       </form>
       <FilterCheckbox
         setIsShort={setIsShort}
+        isShort={isShort}
       />
     </section>
   );

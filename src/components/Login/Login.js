@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './Login.css'
 import Input from '../Input/Input';
 import Button from '../Button/Button';
@@ -9,6 +9,7 @@ import AuthForm from '../AuthForm/AuthForm';
 import {useHistory} from 'react-router-dom';
 import {useFormWithValidation} from '../../hooks/useFormValidation';
 import {mainApi} from '../../utils/MainApi';
+import userContext from '../../context/userContext';
 
 function Login({setLoggedIn}) {
   const history = useHistory();
@@ -22,6 +23,8 @@ function Login({setLoggedIn}) {
   } = useFormWithValidation();
   const [formError, setFormError] = useState(false);
   const formId = 'signinForm';
+  const {setCurrentUser} = useContext(userContext)
+
   useEffect(() => {
     resetForm()
   }, [])
@@ -30,9 +33,21 @@ function Login({setLoggedIn}) {
     event.preventDefault();
     const target = event.target;
     mainApi.signin(target.email.value, target.password.value)
-    .then(() => {
-      setLoggedIn(true)
-      history.push('/movies')
+    .then((token) => {
+      return mainApi.getProfile(token)
+    })
+    .then((res) => {
+      console.log(res)
+      if (res) {
+        setLoggedIn(true)
+        setCurrentUser({
+          email: res.email,
+          name: res.name
+        });
+        history.push('/movies')
+      } else {
+        throw new Error
+      }
     })
     .catch(() => {
       setFormError(true)

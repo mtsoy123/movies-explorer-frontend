@@ -39,6 +39,30 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
     defaultShowMovies();
   }, [isDesktop])
 
+  useEffect(() => {
+    if (localStorageMovies) {
+      setShowMovieCardList(!showMovieCardList)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (localStorageMovies) {
+      setMovies(localStorageMovies)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (localStorageIsShort) {
+      setIsShort(localStorageIsShort)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (localStorageQuery) {
+      setMovieQuery(localStorageQuery)
+    }
+  }, [])
+
   const defaultShowMovies = () => setShowMovies((isDesktop ? 12 : (isTablet ? 8 : 5)));
 
   function handleCardLike(movieProps) {
@@ -156,6 +180,7 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
           setIsShort={setIsShort}
           setMovieQuery={setMovieQuery}
           movieQuery={movieQuery}
+          isShort={isShort}
         />
         {isLoading && <Preloader
           isLoading={isLoading}
