@@ -13,6 +13,7 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
   const [isSuccess, setIsSuccess] = useState(false);
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
+  const [formError, setFormError] = useState(false);
 
   function edit() {
     setIsEdit(!isEdit);
@@ -25,6 +26,7 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
   const history = useHistory();
   const {name, email} = currentUser;
   const [disabledButton, setDisabledButton] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     setNameValue(name);
@@ -61,12 +63,25 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    setErrorMessage('')
+    setFormError(false);
+
     mainApi.updateProfile(nameValue, emailValue)
     .then(res => {
       setCurrentUser(res)
       setIsSuccess(true);
+      setTimeout(() => setIsSuccess(false), 2000)
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err)
+      setErrorMessage('Указаный email принадлежит другому пользователю')
+      setFormError(true);
+      setIsEdit(true);
+      setIsDisabled(!isDisabled);
+      // setNameValue(name);
+      // setEmailValue(email);
+    })
   }
 
   function handleSignout() {
@@ -108,7 +123,8 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
                   className={`profile__button profile__button_type_edit ${isEdit && 'profile__button_type_primary'}`}
                   onClick={edit} disabled={disabledButton}>Редактировать
           </button>
-
+          <span
+            className={`button__error ${formError && 'button__error_type_visible'}`}>{errorMessage}</span>
           <button type="button"
                   className={`profile__button profile__button_type_warning ${isEdit && 'profile__button_type_hidden'}`}
                   onClick={handleSignout}>Выйти

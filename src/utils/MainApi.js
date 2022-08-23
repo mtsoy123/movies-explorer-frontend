@@ -84,7 +84,6 @@ class MainApi {
     .then((res) => {
       return res;
     })
-    .catch(err => console.log(err))
   }
 
   signin(email, password) {
@@ -99,13 +98,11 @@ class MainApi {
       body: JSON.stringify({email, password})
     })
     .then((data) => {
-      // console.log(data)
       if (data.token) {
         localStorage.setItem('jwt', data.token);
         return data;
       }
     })
-    .catch(err => console.log(err))
   }
 
   getProfile(token) {
@@ -129,7 +126,6 @@ class MainApi {
     .then((res) => {
       return res
     })
-    .catch(err => console.log(err))
   }
 
   updateProfile(name, email) {

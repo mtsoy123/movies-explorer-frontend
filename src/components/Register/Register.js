@@ -38,8 +38,10 @@ function Register({setLoggedIn}) {
     const target = event.target;
 
     mainApi.signup(target.email.value, target.password.value, target.name.value)
-    .then(() => {
-      return mainApi.signin(target.email.value, target.password.value)
+    .then((res) => {
+      if (res) {
+        mainApi.signin(target.email.value, target.password.value)
+      }
     })
     .then((token) => mainApi.getProfile(token))
     .then((res) => {
@@ -50,7 +52,8 @@ function Register({setLoggedIn}) {
       });
       history.push('/movies')
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err)
       setFormError(true)
     })
   }

@@ -42,11 +42,6 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
   useEffect(() => {
     if (localStorageMovies) {
       setShowMovieCardList(!showMovieCardList)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (localStorageMovies) {
       setMovies(localStorageMovies)
     }
   }, [])
@@ -56,6 +51,12 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
       setIsShort(localStorageIsShort)
     }
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem('isShort', JSON.stringify(isShort));
+    setLocalStorageIsShort(JSON.parse(localStorage.getItem('isShort')));
+    defaultShowMovies();
+  }, [isShort])
 
   useEffect(() => {
     if (localStorageQuery) {
@@ -139,14 +140,25 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
   }
 
   function renderMovies(moviesCount) {
+    /*
+    * Если поставить короткометражки
+    * перейти на другую страницу
+    * Вернутся на movies
+    * тоггл короткометражки
+    * будет показан 1 фильм
+    * проблема в showmovies??
+    *
+    * */
+
     const filteredArray = filterQuery(localStorageMovies, localStorageQuery, localStorageIsShort);
 
     if (filteredArray.length === 0) {
       return setErrorMessage('Ничего не найдено');
     }
 
-    if (moviesCount <= filteredArray) {
+    if (moviesCount < filteredArray) {
       setShowMoreVisibility(true)
+      defaultShowMovies();
     }
 
     if (moviesCount >= filteredArray.length && showMoreVisibility === true) {
