@@ -21,7 +21,7 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
   }
 
   const {currentUser, setCurrentUser} = useContext(userContext);
-  console.log(currentUser)
+  // console.log(currentUser)
   const history = useHistory();
   const {name, email} = currentUser;
   const [disabledButton, setDisabledButton] = useState(false);
@@ -37,7 +37,7 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
     }, [])*/
 
   function handleNameChange(event) {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     nameValidation(event);
     setNameValue(event.target.value)
   }

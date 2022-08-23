@@ -99,7 +99,7 @@ class MainApi {
       body: JSON.stringify({email, password})
     })
     .then((data) => {
-      console.log(data)
+      // console.log(data)
       if (data.token) {
         localStorage.setItem('jwt', data.token);
         return data;

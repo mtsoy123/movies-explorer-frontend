@@ -6,8 +6,6 @@ function FilterCheckbox({setIsShort, isShort}) {
     setIsShort(!isShort)
   }
 
-  // useEffect(() => console.log(isShort), [isShort])
-
   return (
     <div className="filter">
       <input onChange={handleClick} checked={isShort}
