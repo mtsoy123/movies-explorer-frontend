@@ -79,8 +79,6 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
       setFormError(true);
       setIsEdit(true);
       setIsDisabled(!isDisabled);
-      // setNameValue(name);
-      // setEmailValue(email);
     })
   }
 
@@ -88,8 +86,12 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
     mainApi.signOut()
     .then(() => {
       setCurrentUser({});
-      localStorage.removeItem('jwt');
       setLoggedIn(false);
+      setCurrentUser({});
+      localStorage.removeItem('jwt');
+      localStorage.removeItem('moviesArr');
+      localStorage.removeItem('inputQuery');
+      localStorage.removeItem('isShort');
       history.push('/');
     })
     .catch(err => console.log(err))

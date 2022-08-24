@@ -41,7 +41,10 @@ function App() {
       .catch(err => {
         console.log(err);
       });
+    } else {
+      history.push('/signin')
     }
+
   }
 
   return (

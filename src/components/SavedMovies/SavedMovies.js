@@ -16,8 +16,8 @@ function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
   const [errorMessage, setErrorMessage] = useState('')
   const [isShort, setIsShort] = useState(false);
   const [movieQuery, setMovieQuery] = useState('');
-  const [localStorageQuery, setLocalStorageQuery] = useState(localStorage.getItem('inputQuery'));
-  const [localStorageIsShort, setLocalStorageIsShort] = useState(JSON.parse(localStorage.getItem('isShort')));
+  // const [query, setQuery] = useState(localStorage.getItem('inputQuery'));
+  // const [savedMoviesIsShort, setLocalStorageIsShort] = useState(JSON.parse(localStorage.getItem('isShort')));
   const [localStorageMovies, setLocalStorageMovies] = useState(JSON.parse(localStorage.getItem('moviesArr')));
   const [likedMovies, setLikedMovies] = useState([]);
 
@@ -44,6 +44,11 @@ function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
     }
   }, [])
 
+  /*  useEffect(() => {
+      localStorage.setItem('isShort', JSON.stringify(isShort));
+      setLocalStorageIsShort(JSON.parse(localStorage.getItem('isShort')));
+    }, [isShort])*/
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!movieQuery) {
@@ -52,10 +57,10 @@ function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
     if (likedMovies.length === 0) {
       return setErrorMessage('Ничего не найдено');
     }
-    localStorage.setItem('inputQuery', movieQuery);
-    localStorage.setItem('isShort', JSON.stringify(isShort));
-    setLocalStorageQuery(localStorage.getItem('inputQuery'));
-    setLocalStorageIsShort(JSON.parse(localStorage.getItem('isShort')));
+    // localStorage.setItem('inputQuery', movieQuery);
+    // localStorage.setItem('isShort', JSON.stringify(isShort));
+    // setLocalStorageQuery(localStorage.getItem('inputQuery'));
+    // setLocalStorageIsShort(JSON.parse(localStorage.getItem('isShort')));
     setShowMovieCardList(true);
   }
 
@@ -92,7 +97,7 @@ function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
   }
 
   function renderMovies() {
-    const filteredArray = filterQuery(likedMovies, localStorageQuery, localStorageIsShort);
+    const filteredArray = filterQuery(likedMovies, movieQuery, isShort);
 
     return filteredArray.map((movie) => (
       <MoviesCard
@@ -118,6 +123,7 @@ function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
         setIsShort={setIsShort}
         setMovieQuery={setMovieQuery}
         movieQuery={movieQuery}
+        isShort={isShort}
       />
       {errorMessage && (<MovieListError
         errorText={errorMessage}

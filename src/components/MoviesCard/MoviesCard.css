@@ -14,6 +14,7 @@
   object-position: center;
   width: 364px;
   height: 203px;
+  cursor: pointer;
 }
 
 .movie-card__container {
@@ -130,5 +131,9 @@
   .movie-card__button {
     top: 7px;
     right: 10px;
+  }
+
+  .movie-card__button_type_delete {
+    opacity: 100;
   }
 }
