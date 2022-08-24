@@ -24,17 +24,17 @@ class MainApi {
         headers: this._headers,
         credentials: 'include',
         body: JSON.stringify({
-          country: movieProps.country,
-          director: movieProps.director,
-          duration: movieProps.duration,
-          year: movieProps.year,
-          description: movieProps.description,
+          country: movieProps.country || ' ',
+          director: movieProps.director || ' ',
+          duration: movieProps.duration || ' ',
+          year: movieProps.year || ' ',
+          description: movieProps.description = ' ',
           image: `https://api.nomoreparties.co${movieProps.image.url}`,
-          trailerLink: movieProps.trailerLink,
-          nameRU: movieProps.nameRU,
-          nameEN: movieProps.nameEN,
+          trailerLink: movieProps.trailerLink || `https://api.nomoreparties.co`,
+          nameRU: movieProps.nameRU || ' ',
+          nameEN: movieProps.nameEN || ' ',
           thumbnail: `https://api.nomoreparties.co${movieProps.image.formats.thumbnail.url}`,
-          movieId: movieProps.id,
+          movieId: movieProps.id || ' ',
         })
       })
     } else {

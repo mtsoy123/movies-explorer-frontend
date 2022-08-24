@@ -10,31 +10,40 @@ import {mainApi} from '../../utils/MainApi';
 import {filterQuery} from '../../utils/filter';
 import MovieListError from '../MovieListError/MovieListError';
 
-function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
+function SavedMovies({
+                       menuOpened, setMenuOpened, loggedIn, savedMoviesIsShort,
+                       setSavedMoviesIsShort,
+                       savedMoviesQuery,
+                       setSavedMoviesQuery,
+                       savedMoviesLocalStorage,
+                       setSavedMoviesLocalStorage,
+                       likedMovies,
+                       setLikedMovies,
+                     }) {
   const [movies, setMovies] = useState([]);
   const [showMovieCardList, setShowMovieCardList] = useState(false);
   const [errorMessage, setErrorMessage] = useState('')
-  const [isShort, setIsShort] = useState(false);
-  const [movieQuery, setMovieQuery] = useState('');
-  const [localStorageMovies, setLocalStorageMovies] = useState(JSON.parse(localStorage.getItem('moviesArr')));
-  const [likedMovies, setLikedMovies] = useState([]);
+
 
   useEffect(() => {
-    if (localStorageMovies) {
-      setMovies(localStorageMovies);
+    if (savedMoviesLocalStorage) {
+      setMovies(savedMoviesLocalStorage);
     } else {
       setMovies([])
     }
   }, [])
 
   useEffect(() => {
-    if (localStorage.getItem('moviesArr')) {
-      setLocalStorageMovies(JSON.parse(localStorage.getItem('moviesArr')));
-      setLikedMovies(localStorageMovies.filter(item => {
+    setSavedMoviesLocalStorage(JSON.parse(localStorage.getItem('moviesArr')));
+  }, [])
+
+  useEffect(() => {
+    if (savedMoviesLocalStorage) {
+      setLikedMovies(savedMoviesLocalStorage.filter(item => {
         return item.liked
       }))
     }
-  }, [movies])
+  }, [savedMoviesLocalStorage])
 
   useEffect(() => {
     if (likedMovies) {
@@ -45,8 +54,8 @@ function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     setShowMovieCardList(true);
-    setErrorMessage(false)
-    if (!movieQuery) {
+    setErrorMessage('')
+    if (!savedMoviesQuery) {
       setShowMovieCardList(false);
       return setErrorMessage('Нужно ввести ключевое слово');
     }
@@ -57,39 +66,38 @@ function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
   }
 
   function handleDeleteMovie(movieProps) {
-    mainApi.getMovies()
-    .then(res => {
-      return res.filter(m => m.movieId === movieProps.id);
+
+    const likedMovie = savedMoviesLocalStorage.filter(movie => {
+      return movie.id === movieProps.id
     })
-    .then(likedMovie => {
-      return mainApi.deleteMovie(likedMovie[0]._id)
-      .then((editedMovie) => {
-        const getNewMovieArray = (moviesArray) => {
-          return moviesArray.map((m) => {
-            if (m.id === editedMovie.movieId) {
-              m.liked = !m.liked
-              return m
-            } else {
-              return m
-            }
-          })
-        }
-        const newMovieArray = getNewMovieArray(localStorageMovies);
-        setMovies(newMovieArray);
-        return newMovieArray;
-      })
-      .then((res) => {
-        return localStorage.setItem('moviesArr', JSON.stringify(res))
-      })
-      .then(() => {
-        renderMovies();
-      })
+
+    mainApi.deleteMovie(likedMovie[0]._id)
+    .then((editedMovie) => {
+      const getNewMovieArray = (moviesArray) => {
+        return moviesArray.map((m) => {
+          if (m.id === editedMovie.movieId) {
+            m.liked = !m.liked
+            return m
+          } else {
+            return m
+          }
+        })
+      }
+      const newMovieArray = getNewMovieArray(savedMoviesLocalStorage);
+      return newMovieArray;
+    })
+    .then((res) => {
+      localStorage.setItem('moviesArr', JSON.stringify(res))
+      setSavedMoviesLocalStorage(res)
+    })
+    .then(() => {
+      renderMovies();
     })
     .catch(err => console.log(err))
   }
 
   function renderMovies() {
-    const filteredArray = filterQuery(likedMovies, movieQuery, isShort);
+    const filteredArray = filterQuery(likedMovies, savedMoviesQuery, savedMoviesIsShort);
 
     return filteredArray.map((movie) => (
       <MoviesCard
@@ -112,10 +120,10 @@ function SavedMovies({menuOpened, setMenuOpened, loggedIn}) {
         loggedIn={loggedIn}/>
       <SearchForm
         handleSubmit={handleSubmit}
-        setIsShort={setIsShort}
-        setMovieQuery={setMovieQuery}
-        movieQuery={movieQuery}
-        isShort={isShort}
+        setIsShort={setSavedMoviesIsShort}
+        setMovieQuery={setSavedMoviesQuery}
+        movieQuery={savedMoviesQuery}
+        isShort={savedMoviesIsShort}
       />
       {errorMessage && (<MovieListError
         errorText={errorMessage}

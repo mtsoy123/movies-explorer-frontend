@@ -23,6 +23,11 @@ function App() {
   const [localStorageIsShort, setLocalStorageIsShort] = useState(JSON.parse(localStorage.getItem('isShort')));
   const [localStorageMovies, setLocalStorageMovies] = useState(JSON.parse(localStorage.getItem('moviesArr')));
 
+  const [savedMoviesIsShort, setSavedMoviesIsShort] = useState(false);
+  const [savedMoviesQuery, setSavedMoviesQuery] = useState('');
+  const [savedMoviesLocalStorage, setSavedMoviesLocalStorage] = useState(JSON.parse(localStorage.getItem('moviesArr')));
+  const [likedMovies, setLikedMovies] = useState([]);
+
   const history = useHistory();
   const location = useLocation();
 
@@ -66,6 +71,16 @@ function App() {
             component={Movies}
             menuOpened={menuOpened}
             setMenuOpened={setMenuOpened}
+            isShort={isShort}
+            setIsShort={setIsShort}
+            movieQuery={movieQuery}
+            setMovieQuery={setMovieQuery}
+            localStorageQuery={localStorageQuery}
+            setLocalStorageQuery={setLocalStorageQuery}
+            localStorageIsShort={localStorageIsShort}
+            setLocalStorageIsShort={setLocalStorageIsShort}
+            localStorageMovies={localStorageMovies}
+            setLocalStorageMovies={setLocalStorageMovies}
           />
 
           <ProtectedRoute
@@ -76,6 +91,14 @@ function App() {
             component={SavedMovies}
             menuOpened={menuOpened}
             setMenuOpened={setMenuOpened}
+            savedMoviesIsShort={savedMoviesIsShort}
+            setSavedMoviesIsShort={setSavedMoviesIsShort}
+            savedMoviesQuery={savedMoviesQuery}
+            setSavedMoviesQuery={setSavedMoviesQuery}
+            savedMoviesLocalStorage={savedMoviesLocalStorage}
+            setSavedMoviesLocalStorage={setSavedMoviesLocalStorage}
+            likedMovies={likedMovies}
+            setLikedMovies={setLikedMovies}
           />
 
           <ProtectedRoute
@@ -87,6 +110,15 @@ function App() {
             menuOpened={menuOpened}
             setMenuOpened={setMenuOpened}
             setLoggedIn={setLoggedIn}
+            setIsShort={setIsShort}
+            setMovieQuery={setMovieQuery}
+            setLocalStorageQuery={setLocalStorageQuery}
+            setLocalStorageIsShort={setLocalStorageIsShort}
+            setLocalStorageMovies={setLocalStorageMovies}
+            setSavedMoviesIsShort={setSavedMoviesIsShort}
+            setSavedMoviesQuery={setSavedMoviesQuery}
+            setSavedMoviesLocalStorage={setSavedMoviesLocalStorage}
+            setLikedMovies={setLikedMovies}
           />
           <Route path="/signin">
             <Login

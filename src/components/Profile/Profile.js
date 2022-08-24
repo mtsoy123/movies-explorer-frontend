@@ -6,7 +6,17 @@ import {mainApi} from '../../utils/MainApi';
 import {useFormWithValidation} from '../../hooks/useFormValidation';
 import {useHistory} from 'react-router-dom';
 
-function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
+function Profile({
+                   menuOpened,
+                   setMenuOpened,
+                   loggedIn,
+                   setLoggedIn,
+                   setIsShort,
+                   setMovieQuery,
+                   setLocalStorageQuery,
+                   setLocalStorageIsShort,
+                   setLocalStorageMovies
+                 }) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEdit, setIsEdit] = useState(false)
   const {values, errors, nameValidation, emailValidation} = useFormWithValidation();
@@ -81,6 +91,15 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
       setCurrentUser({});
       setLoggedIn(false);
       setCurrentUser({});
+      setIsShort(false);
+      setMovieQuery('');
+      setLocalStorageQuery('');
+      setLocalStorageIsShort(false);
+      setLocalStorageMovies([]);
+      setSavedMoviesIsShort(false);
+      setSavedMoviesQuery('');
+      setSavedMoviesLocalStorage([]);
+      setLikedMovies([]);
       localStorage.removeItem('jwt');
       localStorage.removeItem('moviesArr');
       localStorage.removeItem('inputQuery');

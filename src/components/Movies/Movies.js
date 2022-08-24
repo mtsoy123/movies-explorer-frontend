@@ -20,13 +20,26 @@ import {
   TABLET_MOVIES_COUNT
 } from '../../utils/Constant';
 
-function Movies({menuOpened, setMenuOpened, loggedIn}) {
+function Movies({
+                  menuOpened,
+                  setMenuOpened,
+                  loggedIn,
+                  isShort,
+                  setIsShort,
+                  movieQuery,
+                  setMovieQuery,
+                  localStorageQuery,
+                  setLocalStorageQuery,
+                  localStorageIsShort,
+                  setLocalStorageIsShort,
+                  localStorageMovies,
+                  setLocalStorageMovies
+                }) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('')
   const [showMovieCardList, setShowMovieCardList] = useState(false);
   const [showMovies, setShowMovies] = useState(0);
   const [showMoreVisibility, setShowMoreVisibility] = useState(true);
-
   const isDesktop = useMediaQuery('(min-width: 769px)');
   const isTablet = useMediaQuery('(max-width: 768px)');
 
@@ -53,6 +66,16 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
   }, [])
 
   useEffect(() => {
+    if (!localStorageMovies) {
+      getLikedMovies();
+    }
+  }, [])
+
+  useEffect(() => {
+    setShowMoreVisibility(false)
+  }, [])
+
+  useEffect(() => {
     localStorage.setItem('isShort', JSON.stringify(isShort));
     setLocalStorageIsShort(JSON.parse(localStorage.getItem('isShort')));
     defaultShowMovies();
@@ -70,33 +93,36 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
     }
   }, [isShort])
 
+  useEffect(() => {
+    setLocalStorageMovies(JSON.parse(localStorage.getItem('moviesArr')));
+  }, [])
+
   const defaultShowMovies = () => setShowMovies((isDesktop ? DESKTOP_MOVIES_COUNT : (isTablet ? TABLET_MOVIES_COUNT : MOBILE_MOVIES_COUNT)));
 
   function handleCardLike(movieProps) {
-
-    mainApi.getMovies()
-    .then(res => {
-      return res.filter(m => m.movieId === movieProps.id);
+    const likedMovie = localStorageMovies.filter(movie => {
+      return movie.movieId === movieProps.id
     })
-    .then(likedMovie => {
-      return mainApi.changeCardStatus(movieProps, likedMovie)
-      .then((editedMovie) => {
-        const getNewMovieArray = (moviesArray) => {
-          return moviesArray.map((m) => {
-            if (m.id === editedMovie.movieId) {
-              m.liked = !m.liked
-              m._id = editedMovie._id
-              return m
-            } else {
-              return m
-            }
-          })
-        }
-        return getNewMovieArray(localStorageMovies);
-      })
-      .then((res) => {
-        return localStorage.setItem('moviesArr', JSON.stringify(res))
-      })
+
+    mainApi.changeCardStatus(movieProps, likedMovie)
+    .then((editedMovie) => {
+      const getNewMovieArray = (moviesArray) => {
+        return moviesArray.map((m) => {
+          if (m.id === editedMovie.movieId) {
+            m.liked = !m.liked
+            m._id = editedMovie._id
+            return m
+          } else {
+            return m
+          }
+        })
+      }
+      const newMovieArray = getNewMovieArray(localStorageMovies);
+      return newMovieArray;
+    })
+    .then((res) => {
+      localStorage.setItem('moviesArr', JSON.stringify(res))
+      setLocalStorageMovies(res)
     })
     .catch(err => console.log(err))
   }
@@ -124,22 +150,13 @@ function Movies({menuOpened, setMenuOpened, loggedIn}) {
         setLocalStorageMovies(JSON.parse(localStorage.getItem('moviesArr')));
         return likedMoviesArray;
       })
-
       return moviesArr
-
-
     })
     .catch((err) => {
       console.log(err)
       setErrorMessage('Во время запроса произошла ошибка.\nВозможно, проблема с соединением или сервер недоступен.\nПодождите немного и попробуйте ещё раз')
     })
   }
-
-  useEffect(() => {
-    if (!localStorageMovies) {
-      getLikedMovies();
-    }
-  }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault();
