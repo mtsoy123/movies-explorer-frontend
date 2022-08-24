@@ -15,7 +15,11 @@ function Profile({
                    setMovieQuery,
                    setLocalStorageQuery,
                    setLocalStorageIsShort,
-                   setLocalStorageMovies
+                   setLocalStorageMovies,
+                   setSavedMoviesIsShort,
+                   setSavedMoviesQuery,
+                   setSavedMoviesLocalStorage,
+                   setLikedMovies,
                  }) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEdit, setIsEdit] = useState(false)
