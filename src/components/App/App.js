@@ -54,7 +54,7 @@ function App() {
         console.log(err);
       });
     } else {
-      history.push('/signin')
+      history.push('/')
     }
 
   }
