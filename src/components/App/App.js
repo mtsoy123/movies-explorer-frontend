@@ -16,6 +16,13 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [menuOpened, setMenuOpened] = useState(false);
   const [currentUser, setCurrentUser] = useState(useContext(userContext));
+
+  const [isShort, setIsShort] = useState(false);
+  const [movieQuery, setMovieQuery] = useState('');
+  const [localStorageQuery, setLocalStorageQuery] = useState(localStorage.getItem('inputQuery'));
+  const [localStorageIsShort, setLocalStorageIsShort] = useState(JSON.parse(localStorage.getItem('isShort')));
+  const [localStorageMovies, setLocalStorageMovies] = useState(JSON.parse(localStorage.getItem('moviesArr')));
+
   const history = useHistory();
   const location = useLocation();
 

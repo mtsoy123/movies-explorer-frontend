@@ -37,7 +37,6 @@ function Login({setLoggedIn}) {
       return mainApi.getProfile(token)
     })
     .then((res) => {
-      // console.log(res)
       if (res) {
         setLoggedIn(true)
         setCurrentUser({

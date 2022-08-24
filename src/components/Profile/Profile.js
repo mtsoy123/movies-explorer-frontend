@@ -22,7 +22,6 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
   }
 
   const {currentUser, setCurrentUser} = useContext(userContext);
-  // console.log(currentUser)
   const history = useHistory();
   const {name, email} = currentUser;
   const [disabledButton, setDisabledButton] = useState(false);
@@ -33,13 +32,7 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
     setEmailValue(email);
   }, [])
 
-  /*  useEffect(() => {
-      values.name = name;
-      values.email = email;
-    }, [])*/
-
   function handleNameChange(event) {
-    // console.log(event.target.value)
     nameValidation(event);
     setNameValue(event.target.value)
   }
@@ -71,7 +64,7 @@ function Profile({menuOpened, setMenuOpened, loggedIn, setLoggedIn}) {
     .then(res => {
       setCurrentUser(res)
       setIsSuccess(true);
-      setTimeout(() => setIsSuccess(false), 2000)
+      setTimeout(() => setIsSuccess(false), 1500)
     })
     .catch(err => {
       console.log(err)
