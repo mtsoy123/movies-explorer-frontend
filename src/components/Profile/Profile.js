@@ -18,7 +18,6 @@ function Profile({
                    setLocalStorageMovies,
                    setSavedMoviesIsShort,
                    setSavedMoviesQuery,
-                   // setSavedMoviesLocalStorage,
                    setLikedMovies,
                  }) {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -108,13 +107,6 @@ function Profile({
         return
       }
 
-
-      /*if (err === 500 || ) {
-        setErrorMessage('Ошибка сервера')
-      }*/
-
-
-      // setIsDisabled(!isDisabled);
     })
   }
 
@@ -131,7 +123,6 @@ function Profile({
       setLocalStorageMovies([]);
       setSavedMoviesIsShort(false);
       setSavedMoviesQuery('');
-      // setSavedMoviesLocalStorage([]);
       setLikedMovies([]);
       localStorage.removeItem('jwt');
       localStorage.removeItem('moviesArr');

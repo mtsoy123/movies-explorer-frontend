@@ -26,7 +26,6 @@ function App() {
 
   const [savedMoviesIsShort, setSavedMoviesIsShort] = useState(false);
   const [savedMoviesQuery, setSavedMoviesQuery] = useState('');
-  // const [savedMoviesLocalStorage, setSavedMoviesLocalStorage] = useState(JSON.parse(localStorage.getItem('moviesArr')));
   const [likedMovies, setLikedMovies] = useState([]);
 
   const history = useHistory();
@@ -35,8 +34,6 @@ function App() {
   useEffect(() => {
     checkToken()
   }, [])
-
-  // console.log(!localStorageMovies)
 
   useEffect(() => {
     if (loggedIn) {
@@ -101,7 +98,6 @@ function App() {
     })
     .catch((err) => {
       console.log(err)
-      // setErrorMessage('Во время запроса произошла ошибка.\nВозможно, проблема с соединением или сервер недоступен.\nПодождите немного и попробуйте ещё раз')
     })
   }
 
@@ -141,8 +137,6 @@ function App() {
             setSavedMoviesIsShort={setSavedMoviesIsShort}
             savedMoviesQuery={savedMoviesQuery}
             setSavedMoviesQuery={setSavedMoviesQuery}
-            // savedMoviesLocalStorage={savedMoviesLocalStorage}
-            // setSavedMoviesLocalStorage={setSavedMoviesLocalStorage}
             likedMovies={likedMovies}
             setLikedMovies={setLikedMovies}
             localStorageMovies={localStorageMovies}
@@ -165,7 +159,6 @@ function App() {
             setLocalStorageMovies={setLocalStorageMovies}
             setSavedMoviesIsShort={setSavedMoviesIsShort}
             setSavedMoviesQuery={setSavedMoviesQuery}
-            // setSavedMoviesLocalStorage={setSavedMoviesLocalStorage}
             setLikedMovies={setLikedMovies}
           />
 

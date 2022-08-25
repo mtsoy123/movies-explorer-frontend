@@ -42,12 +42,6 @@ function Movies({
   const isDesktop = useMediaQuery('(min-width: 769px)');
   const isTablet = useMediaQuery('(min-width: 320px)');
 
-  /*  useEffect(() => {
-      if (localStorage.getItem('moviesArr')) {
-        setLocalStorageMovies(JSON.parse(localStorage.getItem('moviesArr')));
-      }
-    }, [movies])*/
-
   useEffect(() => {
     defaultShowMovies();
   }, [isDesktop])

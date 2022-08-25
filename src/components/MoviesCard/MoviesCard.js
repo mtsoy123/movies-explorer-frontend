@@ -20,8 +20,6 @@ function MoviesCard({
   }
 
   function openTrailer(event) {
-    console.log(cardProps)
-    console.log(trailerLink)
     if (!event.target.className.includes('movie-card__button')) {
       const newWindow = window.open(trailerLink, '_blank', 'noopener,noreferrer')
       if (newWindow) newWindow.opener = null

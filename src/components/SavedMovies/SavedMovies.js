@@ -15,8 +15,6 @@ function SavedMovies({
                        setSavedMoviesIsShort,
                        savedMoviesQuery,
                        setSavedMoviesQuery,
-                       // savedMoviesLocalStorage,
-                       // setSavedMoviesLocalStorage,
                        likedMovies,
                        setLikedMovies,
                        localStorageMovies,
@@ -25,19 +23,6 @@ function SavedMovies({
   const [movies, setMovies] = useState([]);
   const [showMovieCardList, setShowMovieCardList] = useState(true);
   const [errorMessage, setErrorMessage] = useState('')
-
-
-  /*useEffect(() => {
-    if (localStorageMovies) {
-      setMovies(localStorageMovies);
-    } else {
-      setMovies([])
-    }
-  }, [])*/
-
-  /*useEffect(() => {
-    setLocalStorageMovies(JSON.parse(localStorage.getItem('moviesArr')));
-  }, [])*/
 
   useEffect(() => {
     if (localStorageMovies) {
