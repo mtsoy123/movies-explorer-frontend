@@ -118,7 +118,7 @@ class MainApi {
   }
 
   signOut() {
-    return this._checkResponse(`${this._baseUrl}/users/me`, {
+    return this._checkResponse(`${this._baseUrl}/signout`, {
       method: 'GET',
       headers: this._headers,
       credentials: 'include',

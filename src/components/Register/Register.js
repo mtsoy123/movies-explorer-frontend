@@ -40,10 +40,15 @@ function Register({setLoggedIn}) {
     mainApi.signup(target.email.value, target.password.value, target.name.value)
     .then((res) => {
       if (res) {
-        mainApi.signin(target.email.value, target.password.value)
+        return mainApi.signin(target.email.value, target.password.value)
       }
     })
-    .then((token) => mainApi.getProfile(token))
+    .then((token) => {
+      if (!token) {
+        throw new Error()
+      }
+      return mainApi.getProfile(token)
+    })
     .then((res) => {
       setLoggedIn(true)
       setCurrentUser({

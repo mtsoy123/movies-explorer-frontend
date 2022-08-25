@@ -19,14 +19,18 @@ function MoviesCard({
     handleCardAction(cardProps)
   }
 
-  function openTrailer() {
-    const newWindow = window.open(trailerLink, '_blank', 'noopener,noreferrer')
-    if (newWindow) newWindow.opener = null
+  function openTrailer(event) {
+    console.log(cardProps)
+    console.log(trailerLink)
+    if (!event.target.className.includes('movie-card__button')) {
+      const newWindow = window.open(trailerLink, '_blank', 'noopener,noreferrer')
+      if (newWindow) newWindow.opener = null
+    }
   }
 
   return (
-    <li className="movie-card">
-      <img className="movie-card__thumbnail" onClick={() => openTrailer()} src={imgSrc}
+    <li className="movie-card" onClick={(event) => openTrailer(event)}>
+      <img className="movie-card__thumbnail" src={imgSrc}
            alt={movieTitle}/>
       <div className="movie-card__container">
         <h2 className="movie-card__title">{movieTitle}</h2>

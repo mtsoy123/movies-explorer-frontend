@@ -18,7 +18,7 @@ function Profile({
                    setLocalStorageMovies,
                    setSavedMoviesIsShort,
                    setSavedMoviesQuery,
-                   setSavedMoviesLocalStorage,
+                   // setSavedMoviesLocalStorage,
                    setLikedMovies,
                  }) {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -34,6 +34,12 @@ function Profile({
     setIsDisabled(!isDisabled);
     validateSameValue();
   }
+
+  useEffect(() => {
+    if (isEdit) {
+      validateSameValue();
+    }
+  }, [isEdit])
 
   const {currentUser, setCurrentUser} = useContext(userContext);
   const history = useHistory();
@@ -81,11 +87,34 @@ function Profile({
       setTimeout(() => setIsSuccess(false), 1500)
     })
     .catch(err => {
-      console.log(err)
-      setErrorMessage('Указаный email принадлежит другому пользователю')
       setFormError(true);
-      setIsEdit(true);
-      setIsDisabled(!isDisabled);
+      setIsEdit(false);
+      setNameValue(name);
+      setEmailValue(email);
+      if (err === 409) {
+        setErrorMessage('Указаный email принадлежит другому пользователю')
+        setTimeout(() => setFormError(false), 2000)
+        return
+      }
+      if (err === 500) {
+        setErrorMessage('Ошибка сервера')
+        setTimeout(() => setFormError(false), 2000)
+        return
+      }
+      if (err) {
+        console.log(err)
+        setErrorMessage('Ошибка сети');
+        setTimeout(() => setFormError(false), 2000);
+        return
+      }
+
+
+      /*if (err === 500 || ) {
+        setErrorMessage('Ошибка сервера')
+      }*/
+
+
+      // setIsDisabled(!isDisabled);
     })
   }
 
@@ -102,7 +131,7 @@ function Profile({
       setLocalStorageMovies([]);
       setSavedMoviesIsShort(false);
       setSavedMoviesQuery('');
-      setSavedMoviesLocalStorage([]);
+      // setSavedMoviesLocalStorage([]);
       setLikedMovies([]);
       localStorage.removeItem('jwt');
       localStorage.removeItem('moviesArr');

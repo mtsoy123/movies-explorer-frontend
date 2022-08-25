@@ -1,7 +1,7 @@
 import './App.css';
 import Main from '../Main/Main';
 import {useContext, useEffect, useState} from 'react';
-import {Route, Switch, useHistory, useLocation} from 'react-router-dom';
+import {Redirect, Route, Switch, useHistory, useLocation} from 'react-router-dom';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
@@ -11,6 +11,7 @@ import NotFound from '../NotFound/NotFound';
 import userContext from '../../context/userContext';
 import {mainApi} from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import {movieApi} from '../../utils/MoviesApi';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -25,7 +26,7 @@ function App() {
 
   const [savedMoviesIsShort, setSavedMoviesIsShort] = useState(false);
   const [savedMoviesQuery, setSavedMoviesQuery] = useState('');
-  const [savedMoviesLocalStorage, setSavedMoviesLocalStorage] = useState(JSON.parse(localStorage.getItem('moviesArr')));
+  // const [savedMoviesLocalStorage, setSavedMoviesLocalStorage] = useState(JSON.parse(localStorage.getItem('moviesArr')));
   const [likedMovies, setLikedMovies] = useState([]);
 
   const history = useHistory();
@@ -35,12 +36,21 @@ function App() {
     checkToken()
   }, [])
 
+  // console.log(!localStorageMovies)
+
+  useEffect(() => {
+    if (loggedIn) {
+      getLikedMovies();
+    }
+  }, [loggedIn])
+
   function checkToken() {
     const path = location.pathname;
     const token = localStorage.getItem('jwt');
     if (token) {
       mainApi.getProfile(token)
       .then((res) => {
+        console.log(res)
         if (res) {
           setLoggedIn(true)
           setCurrentUser({
@@ -51,12 +61,46 @@ function App() {
         }
       })
       .catch(err => {
+        history.push('/signin')
         console.log(err);
       });
     } else {
       history.push('/')
     }
+  }
 
+  function getLikedMovies() {
+    movieApi.getMovies()
+    .then((moviesArr) => {
+      mainApi.getMovies()
+      .then((likedMovies) => {
+        const moviesWithLikes = (array) => {
+          return moviesArr.map((m) => {
+            return array.some(movie => {
+              if (m.id === movie.movieId) {
+                m._id = movie._id
+              }
+              return m.id === movie.movieId
+            })
+          })
+        }
+        const likedMoviesArray = moviesWithLikes(likedMovies);
+
+        const moviesWithLikeProperty = moviesArr.map((movie, index) => {
+          movie.liked = likedMoviesArray[index]
+          return movie
+        })
+
+        localStorage.setItem('moviesArr', JSON.stringify(moviesWithLikeProperty));
+        setLocalStorageMovies(JSON.parse(localStorage.getItem('moviesArr')));
+        return likedMoviesArray;
+      })
+      return moviesArr
+    })
+    .catch((err) => {
+      console.log(err)
+      // setErrorMessage('Во время запроса произошла ошибка.\nВозможно, проблема с соединением или сервер недоступен.\nПодождите немного и попробуйте ещё раз')
+    })
   }
 
   return (
@@ -95,10 +139,12 @@ function App() {
             setSavedMoviesIsShort={setSavedMoviesIsShort}
             savedMoviesQuery={savedMoviesQuery}
             setSavedMoviesQuery={setSavedMoviesQuery}
-            savedMoviesLocalStorage={savedMoviesLocalStorage}
-            setSavedMoviesLocalStorage={setSavedMoviesLocalStorage}
+            // savedMoviesLocalStorage={savedMoviesLocalStorage}
+            // setSavedMoviesLocalStorage={setSavedMoviesLocalStorage}
             likedMovies={likedMovies}
             setLikedMovies={setLikedMovies}
+            localStorageMovies={localStorageMovies}
+            setLocalStorageMovies={setLocalStorageMovies}
           />
 
           <ProtectedRoute
@@ -117,19 +163,10 @@ function App() {
             setLocalStorageMovies={setLocalStorageMovies}
             setSavedMoviesIsShort={setSavedMoviesIsShort}
             setSavedMoviesQuery={setSavedMoviesQuery}
-            setSavedMoviesLocalStorage={setSavedMoviesLocalStorage}
+            // setSavedMoviesLocalStorage={setSavedMoviesLocalStorage}
             setLikedMovies={setLikedMovies}
           />
-          <Route path="/signin">
-            <Login
-              setLoggedIn={setLoggedIn}
-            />
-          </Route>
-          <Route path="/signup">
-            <Register
-              setLoggedIn={setLoggedIn}
-            />
-          </Route>
+
           <Route
             exact
             path="/">
@@ -138,6 +175,19 @@ function App() {
               loggedIn={loggedIn}
               menuOpened={menuOpened}
               setMenuOpened={setMenuOpened}
+            />
+          </Route>
+
+          <Route path="/signin">
+            {loggedIn ? (<Redirect to="/"/>) : (<Redirect to="/signin"/>)}
+            <Login
+              setLoggedIn={setLoggedIn}
+            />
+          </Route>
+          <Route path="/signup">
+            {loggedIn ? (<Redirect to="/"/>) : (<Redirect to="/signup"/>)}
+            <Register
+              setLoggedIn={setLoggedIn}
             />
           </Route>
           <Route path="*">

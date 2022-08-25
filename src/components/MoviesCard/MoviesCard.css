@@ -7,6 +7,7 @@
   background: #222;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
   margin: auto;
+  cursor: pointer;
 }
 
 .movie-card__thumbnail {
@@ -14,7 +15,6 @@
   object-position: center;
   width: 364px;
   height: 203px;
-  cursor: pointer;
 }
 
 .movie-card__container {

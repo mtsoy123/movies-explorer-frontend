@@ -15,48 +15,49 @@ function SavedMovies({
                        setSavedMoviesIsShort,
                        savedMoviesQuery,
                        setSavedMoviesQuery,
-                       savedMoviesLocalStorage,
-                       setSavedMoviesLocalStorage,
+                       // savedMoviesLocalStorage,
+                       // setSavedMoviesLocalStorage,
                        likedMovies,
                        setLikedMovies,
+                       localStorageMovies,
+                       setLocalStorageMovies,
                      }) {
   const [movies, setMovies] = useState([]);
-  const [showMovieCardList, setShowMovieCardList] = useState(false);
+  const [showMovieCardList, setShowMovieCardList] = useState(true);
   const [errorMessage, setErrorMessage] = useState('')
 
 
-  useEffect(() => {
-    if (savedMoviesLocalStorage) {
-      setMovies(savedMoviesLocalStorage);
+  /*useEffect(() => {
+    if (localStorageMovies) {
+      setMovies(localStorageMovies);
     } else {
       setMovies([])
     }
-  }, [])
+  }, [])*/
+
+  /*useEffect(() => {
+    setLocalStorageMovies(JSON.parse(localStorage.getItem('moviesArr')));
+  }, [])*/
 
   useEffect(() => {
-    setSavedMoviesLocalStorage(JSON.parse(localStorage.getItem('moviesArr')));
-  }, [])
-
-  useEffect(() => {
-    if (savedMoviesLocalStorage) {
-      setLikedMovies(savedMoviesLocalStorage.filter(item => {
+    if (localStorageMovies) {
+      setLikedMovies(localStorageMovies.filter(item => {
         return item.liked
       }))
     }
-  }, [savedMoviesLocalStorage])
+  }, [localStorageMovies])
 
   useEffect(() => {
     if (likedMovies) {
-      setShowMovieCardList(!showMovieCardList)
+      setShowMovieCardList(true);
     }
   }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setShowMovieCardList(true);
+    setShowMovieCardList(false);
     setErrorMessage('')
     if (!savedMoviesQuery) {
-      setShowMovieCardList(false);
       return setErrorMessage('Нужно ввести ключевое слово');
     }
     if (likedMovies.length === 0) {
@@ -67,7 +68,7 @@ function SavedMovies({
 
   function handleDeleteMovie(movieProps) {
 
-    const likedMovie = savedMoviesLocalStorage.filter(movie => {
+    const likedMovie = localStorageMovies.filter(movie => {
       return movie.id === movieProps.id
     })
 
@@ -83,12 +84,12 @@ function SavedMovies({
           }
         })
       }
-      const newMovieArray = getNewMovieArray(savedMoviesLocalStorage);
+      const newMovieArray = getNewMovieArray(localStorageMovies);
       return newMovieArray;
     })
     .then((res) => {
       localStorage.setItem('moviesArr', JSON.stringify(res))
-      setSavedMoviesLocalStorage(res)
+      setLocalStorageMovies(res)
     })
     .then(() => {
       renderMovies();
@@ -108,6 +109,7 @@ function SavedMovies({
         imgSrc={`https://api.nomoreparties.co/${movie.image.url}`}
         handleCardAction={handleDeleteMovie}
         cardProps={movie}
+        trailerLink={movie.trailerLink}
       />
     ))
   }

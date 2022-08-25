@@ -11,7 +11,6 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import {getDuration} from '../../utils/getDuration';
 import {filterQuery} from '../../utils/filter';
-import {movieApi} from '../../utils/MoviesApi';
 import {
   DESKTOP_ADD_MORE_COUNT,
   DESKTOP_MOVIES_COUNT,
@@ -41,7 +40,7 @@ function Movies({
   const [showMovies, setShowMovies] = useState(0);
   const [showMoreVisibility, setShowMoreVisibility] = useState(true);
   const isDesktop = useMediaQuery('(min-width: 769px)');
-  const isTablet = useMediaQuery('(max-width: 768px)');
+  const isTablet = useMediaQuery('(min-width: 320px)');
 
   /*  useEffect(() => {
       if (localStorage.getItem('moviesArr')) {
@@ -62,12 +61,6 @@ function Movies({
   useEffect(() => {
     if (localStorageIsShort) {
       setIsShort(localStorageIsShort)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!localStorageMovies) {
-      getLikedMovies();
     }
   }, [])
 
@@ -125,37 +118,6 @@ function Movies({
       setLocalStorageMovies(res)
     })
     .catch(err => console.log(err))
-  }
-
-  function getLikedMovies() {
-    movieApi.getMovies()
-    .then((moviesArr) => {
-      mainApi.getMovies()
-      .then((likedMovies) => {
-        const moviesWithLikes = (array) => {
-          return moviesArr.map((m) => {
-            return array.some(movie => {
-              return m.id === movie.movieId
-            })
-          })
-        }
-        const likedMoviesArray = moviesWithLikes(likedMovies);
-
-        const moviesWithLikeProperty = moviesArr.map((movie, index) => {
-          movie.liked = likedMoviesArray[index]
-          return movie
-        })
-
-        localStorage.setItem('moviesArr', JSON.stringify(moviesWithLikeProperty));
-        setLocalStorageMovies(JSON.parse(localStorage.getItem('moviesArr')));
-        return likedMoviesArray;
-      })
-      return moviesArr
-    })
-    .catch((err) => {
-      console.log(err)
-      setErrorMessage('Во время запроса произошла ошибка.\nВозможно, проблема с соединением или сервер недоступен.\nПодождите немного и попробуйте ещё раз')
-    })
   }
 
   const handleSubmit = (event) => {
