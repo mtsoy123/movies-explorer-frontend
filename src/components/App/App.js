@@ -58,12 +58,12 @@ function App() {
         }
       })
       .catch(err => {
-        // if token is invalid
+        // if cookie token is invalid
         history.push('/signin')
         console.log(err);
       });
     } else {
-      // if token is not found
+      // if localStorage token is not found
       history.push('/')
     }
   }
