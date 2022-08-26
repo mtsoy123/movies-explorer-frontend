@@ -1,0 +1,21 @@
+.landing-title {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  color: #fff;
+  padding-bottom: 26px;
+  max-width: 600px;
+}
+
+@media screen and (max-width: 500px) {
+  .landing-title {
+    font-size: 30px;
+    line-height: 36px;
+    padding-bottom: 24px;
+    max-width: 100%;
+  }
+}

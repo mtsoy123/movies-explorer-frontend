@@ -1,0 +1,114 @@
+.portfolio {
+  background-color: #202020;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 70px 125px 70px;
+  width: 100%;
+  max-width: 1280px;
+  box-sizing: border-box;
+}
+
+.portfolio__caption {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: #8b8b8b;
+  margin: 0;
+  padding-bottom: 50px;
+}
+
+.portfolio__link-container {
+  padding: 0;
+  margin: 0;
+}
+
+.portfolio__link {
+  text-decoration: none;
+  list-style: none;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: -0.04em;
+  color: #fff;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.portfolio__link:hover {
+  cursor: pointer;
+  transition: opacity .3s ease-out;
+  opacity: 70%;
+}
+
+.portfolio__link::after {
+  content: '';
+  border-bottom: 1px solid #e6e6e6;;
+  padding-top: 19px;
+  width: 100%;
+  display: block;
+}
+
+.portfolio__link:last-child::after {
+  display: none;
+}
+
+.portfolio__link:last-child {
+  margin-bottom: 0;
+}
+
+.portfolio__text-link {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  letter-spacing: -0.04em;
+  color: #fff;
+  width: 100%;
+  text-decoration: none;
+}
+
+.portfolio__icon-link {
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio {
+    padding: 0 50px 80px 50px;
+  }
+
+  .portfolio__caption {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  .portfolio__link {
+    font-size: 28px;
+    line-height: 50px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+
+  .portfolio {
+    padding: 0 14px 70px 14px;
+  }
+
+  .portfolio__caption {
+    font-size: 14px;
+    line-height: 20px;
+    padding-bottom: 40px;
+  }
+
+  .portfolio__text-link {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}

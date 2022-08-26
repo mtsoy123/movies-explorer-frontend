@@ -1,0 +1,14 @@
+.app {
+  background-color: #202020;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+.app_type_modal_opened {
+  display: block;
+  height: 100vh;
+  overflow-y: hidden;
+}
