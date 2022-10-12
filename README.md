@@ -3,6 +3,10 @@
 ## Frontend
 https://mtsoy123.nomoredomains.xyz
 
+## Backend
+https://api.mtsoy123.nomoredomains.xyz
+https://github.com/mtsoy123/movies-explorer-api
+
 ## Запуск приложения
 `npm run start`
 
@@ -29,7 +33,4 @@ https://mtsoy123.nomoredomains.xyz
 * CSS
 * JavaScript
 * React.js
-* Node.js
-* Express.js
-* MongoDb
 * Git
